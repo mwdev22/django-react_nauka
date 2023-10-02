@@ -1,8 +1,9 @@
 from rest_framework_simplejwt.tokens import Token
-from .models import User, Profile
+from .models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
+from sales.models import Sale
 
 # work like django form
 class UserSerializer(serializers.ModelSerializer):
@@ -23,6 +24,7 @@ class TokenSerializer(TokenObtainPairSerializer):
         token['bio'] = user.profile.bio
         token['image'] = str(user.profile.image)
         token['verified'] = user.profile.verified
+        token['sales'] = Sale.objects.filter(seller=user)
 
         return token
     
