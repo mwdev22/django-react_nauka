@@ -1,10 +1,11 @@
 import {useState, useEffect} from 'react'
 import useAxios from "../utils/useAxios"
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
+import AuthContext from '../auth/AuthContext'
 function Dashboard() {
 
     const [res, setRes] = useState("")
-    const api = useAxios();
     const token = localStorage.getItem("authTokens")
 
     if (token){
@@ -13,7 +14,16 @@ function Dashboard() {
       var username = decode.username
       var full_name = decode.full_name
       var image = decode.image
+    }
 
+    const getSaleList = () => {
+      list = axios.get("http://127.0.0.1:8000/api/sales/", {
+        headers : token.access
+      })
+    }
+
+    const saleDetail = () => {
+      response = axios.get
     }
 
     useEffect(() => {

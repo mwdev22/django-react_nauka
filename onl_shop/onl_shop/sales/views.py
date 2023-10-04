@@ -12,5 +12,5 @@ class SaleViewSet(viewsets.ModelViewSet):
     serializer_class = SaleSerializer
     permission_classes = [IsAuthenticated]
 
-    
+
         

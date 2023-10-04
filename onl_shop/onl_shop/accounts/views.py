@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 from .models import Profile, User
-from .serializers import UserSerializer, TokenSerializer, RegisterSerializer
+from .serializers import UserSerializer, TokenSerializer, RegisterSerializer, ProfileSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
@@ -17,7 +17,10 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-
+class ProfileView(generics.ListAPIView):
+    queryset = Profile.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = ProfileSerializer
 
 
 @api_view(['GET'])

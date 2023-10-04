@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
                 email, username, password, password2
             })
         })
+
 // tworzenie użytkownika oraz profilu dzięki post_save w django, w przypadku poprawnych danych
         if(response.status === 201){
             history("/login")
@@ -111,7 +112,7 @@ export const AuthProvider = ({ children }) => {
             })
         }
     }
-// wylogowywanie użytkownika poprzez odbieranie tokenu, a jednocześnie danych 
+// wylogowywanie użytkownika poprzez usuwanie tokenu z local storage, a jednocześnie danych 
 
     const logoutUser = () => {
         setAuthTokens(null)
