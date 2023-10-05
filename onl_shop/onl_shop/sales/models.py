@@ -1,5 +1,5 @@
 from django.db import models
-from ..accounts.models import User
+from accounts.models import User
 
 class Sale(models.Model):
     
@@ -8,8 +8,11 @@ class Sale(models.Model):
     category = models.CharField(max_length=60)
     description = models.TextField()
     price = models.FloatField()
+
+    img = models.ImageField(default='media/sale.jpg')
     is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.name
+
 

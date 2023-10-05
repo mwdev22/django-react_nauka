@@ -5,10 +5,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-#jvk84#ir@c(vj(4qv*u0^zzzrwm15%j-yp8cfp!!c(2j)a&o&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -32,6 +28,7 @@ INSTALLED_APPS = [
 
 
     'accounts',
+    'sales'
 ]
 
 
@@ -64,7 +61,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backend.wsgi.application"
+WSGI_APPLICATION = "onl_shop.wsgi.application"
 
 
 # Database

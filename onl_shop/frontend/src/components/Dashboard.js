@@ -6,21 +6,28 @@ import AuthContext from '../auth/AuthContext'
 function Dashboard() {
 
     const [res, setRes] = useState("")
-    const token = localStorage.getItem("authTokens")
 
-    if (token){
-      const decode = jwtDecode(token)
-      var user_id = decode.user_id
-      var username = decode.username
-      var full_name = decode.full_name
-      var image = decode.image
-    }
+    const { authTokens } = useContext(AuthContext);
 
-    const getSaleList = () => {
-      list = axios.get("http://127.0.0.1:8000/api/sales/", {
-        headers : token.access
-      })
-    }
+    const sendRequestToApi = async () => {
+
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/sales/", {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        });
+    
+        if (response.status === 200) {
+          const data = response.data;
+          console.log(data)
+        } else {
+
+        }
+      } catch (error) {
+        console.error("Error sending the request:", error);
+      }
+    };
 
     const saleDetail = () => {
       response = axios.get
