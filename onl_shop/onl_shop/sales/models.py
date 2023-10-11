@@ -18,7 +18,7 @@ class Sale(models.Model):
     
 class Transaction(models.Model):
     seller = models.ForeignKey(User, related_name='sold')
-    item = models.ForeignKey(Sale, related_name='transaction')
+    sale = models.ForeignKey(Sale, related_name='transaction')
     buyer = models.ForeignKey(User, related_name='bought')
     transaction_date = models.DateTimeField(auto_now_add=True)  
 

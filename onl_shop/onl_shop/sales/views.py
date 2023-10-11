@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
 class SaleList(generics.ListAPIView):
@@ -35,3 +36,7 @@ class SaleDelete(generics.DestroyAPIView):
 class CreateTransaction(generics.CreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+    permission_classes = [AllowAny]
+
+    def perform_create(self, serializer, pk):
+        serializer.save(sale=get_object_or_404(Sale, pk=pk))
