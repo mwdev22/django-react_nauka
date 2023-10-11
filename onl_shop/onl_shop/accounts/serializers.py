@@ -24,7 +24,6 @@ class TokenSerializer(TokenObtainPairSerializer):
         token['bio'] = user.profile.bio
         token['image'] = str(user.profile.image)
         token['verified'] = user.profile.verified
-        token['sales'] = Sale.objects.filter(seller=user)
 
         return token
     

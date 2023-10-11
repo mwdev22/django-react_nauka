@@ -9,7 +9,7 @@ function Dashboard() {
 
     const { authTokens } = useContext(AuthContext);
 
-    const sendRequestToApi = async () => {
+    const getSales = async () => {
 
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/sales/", {

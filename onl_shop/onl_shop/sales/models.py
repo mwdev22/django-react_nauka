@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+from rest_framework.exceptions import ValidationError
 
 class Sale(models.Model):
     
@@ -14,5 +15,17 @@ class Sale(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+class Transaction(models.Model):
+    seller = models.ForeignKey(User, related_name='sold')
+    item = models.ForeignKey(Sale, related_name='transaction')
+    buyer = models.ForeignKey(User, related_name='bought')
+    transaction_date = models.DateTimeField(auto_now_add=True)  
 
+    def clean(self):
+        if self.seller == self.buyer:
+            raise ValidationError("Seller and buyer cannot be the same user.")
 
+    def save(self, *args, **kwargs):
+        self.clean()  
+        super().save(*args, **kwargs)
