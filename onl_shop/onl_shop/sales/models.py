@@ -21,6 +21,7 @@ class Transaction(models.Model):
     sale = models.ForeignKey(Sale, related_name='transaction')
     buyer = models.ForeignKey(User, related_name='bought')
     transaction_date = models.DateTimeField(auto_now_add=True)  
+    price = models.FloatField(default=sale.price)
 
     def clean(self):
         if self.seller == self.buyer:
