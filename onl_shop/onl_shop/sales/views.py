@@ -8,6 +8,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 
+
 class SaleList(generics.ListAPIView):
     queryset = Sale.objects.all()
     serializer_class = SaleSerializer
@@ -40,3 +41,6 @@ class CreateTransaction(generics.CreateAPIView):
 
     def perform_create(self, serializer, pk):
         serializer.save(sale=get_object_or_404(Sale, pk=pk))
+
+# class UserTransactionList(generics.ListAPIView):
+    # queryset = Transaction.objects.filter(Q)
