@@ -17,8 +17,8 @@ class SaleList(generics.ListAPIView):
     
 class SaleCreate(generics.CreateAPIView):
     queryset = Sale.objects.all()
-    serializer_class = Sale.objects.all()
-    serializer_class.meta.fields = ['name', 'category', 'description', 'price', 'img']
+    serializer_class = SaleSerializer
+    serializer_class.Meta.fields = ['name', 'category', 'description', 'price', 'img']
     authentication_classes = [IsAuthenticated,]
 
     def perform_create(self, serializer):
@@ -28,7 +28,7 @@ class SaleCreate(generics.CreateAPIView):
 class SaleUpdate(generics.UpdateAPIView):
     queryset = Sale.objects.all()
     serializer_class = SaleSerializer
-    serializer_class.meta.fields = ['name', 'category', 'description', 'price', 'img','is_active']
+    serializer_class.Meta.fields = ['name', 'category', 'description', 'price', 'img','is_active']
         
 class SaleDelete(generics.DestroyAPIView):
     queryset = Sale.objects.all()

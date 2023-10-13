@@ -9,6 +9,6 @@ urlpatterns = [
     path('sale_delete/<int:pk>', views.SaleDelete.as_view()),
 
 #   TRANSACTIONS ENDPOINTS
-    path('transactions_list'),
+    path('transactions_list', views.UserTransactionList.as_view()),
     path('new_transaction', views.CreateTransaction.as_view()),
 ]

@@ -17,11 +17,11 @@ class Sale(models.Model):
         return self.name
     
 class Transaction(models.Model):
-    seller = models.ForeignKey(User, related_name='sold')
-    sale = models.ForeignKey(Sale, related_name='transaction')
-    buyer = models.ForeignKey(User, related_name='bought')
+    seller = models.ForeignKey(User, related_name='sold', on_delete=models.SET_NULL, null=True)
+    sale = models.ForeignKey(Sale, related_name='transaction', on_delete=models.SET_NULL, null=True)
+    buyer = models.ForeignKey(User, related_name='bought', on_delete=models.SET_NULL, null=True)
     transaction_date = models.DateTimeField(auto_now_add=True)  
-    price = models.FloatField(default=sale.price)
+    price = models.FloatField()
 
     def clean(self):
         if self.seller == self.buyer:

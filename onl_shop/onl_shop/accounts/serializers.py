@@ -4,8 +4,9 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from sales.models import Sale
+from django.shortcuts import get_object_or_404
 
-# work like django form
+# pracuje tak jak django form
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -17,13 +18,15 @@ class TokenSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
+
+        p = get_object_or_404(Profile,user=user)
         
-        token['full_name'] = user.profile.full_name
+        token['full_name'] = p.username
         token['username'] = user.username
         token['email'] = user.email
-        token['bio'] = user.profile.bio
-        token['image'] = str(user.profile.image)
-        token['verified'] = user.profile.verified
+        token['bio'] = p.bio
+        token['image'] = str(p.img)
+        token['verified'] = p.verified
 
         return token
     

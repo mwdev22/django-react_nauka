@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -42,8 +44,9 @@ class User(AbstractUser):
         return self.username
     
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    username = models.CharField(max_length=30, default=user.name)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile')
+    username = models.CharField(max_length=30,null=True)
     bio = models.TextField(max_length=255)
     img = models.ImageField(default='default.jpg')
     verified = models.BooleanField(default=False)
@@ -51,12 +54,11 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return self.username
 
-# tworzenie profilu przy utworzeniu konta
-def create_user_profile(sender, instance, created,**kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
 
-post_save.connect(create_user_profile, sender=User)
-post_save.connect(save_user_profile, sender=User)
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        profile, created = Profile.objects.get_or_create(user=instance)
+        if not profile.username:
+            profile.username = instance.username
+            profile.save()

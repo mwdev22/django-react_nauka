@@ -3,8 +3,17 @@ from .serializers import UserSerializer, TokenSerializer, RegisterSerializer, Pr
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated,BasePermission
 from rest_framework.response import Response
+
+# customowy permission model, pozwala uzyskać dostęp do edycji określonego profilu tylko jego właścicielowi
+class IsProfileOwner(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_authenticated:
+            return obj.user == request.user
+        return False
+
+
 
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
@@ -19,14 +28,10 @@ class ProfileView(generics.ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ProfileSerializer
 
+class UpdateProfile(generics.UpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = (IsProfileOwner,)
 
-
-@api_view(['GET'])
-def get_routes(request):
-    routes = [
-        '/api/token/',
-        '/api/register/',
-        '/api/token/refresh/'
-    ]
-    return Response(routes)
-
+    def get_queryset(self):
+        queryset = Profile.objects.filter(user=self.request.user)
