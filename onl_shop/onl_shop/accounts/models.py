@@ -43,6 +43,7 @@ class User(AbstractUser):
     def __str__(self) -> str:
         return self.username
     
+    
 class Profile(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile')
@@ -51,14 +52,8 @@ class Profile(models.Model):
     img = models.ImageField(default='default.jpg')
     verified = models.BooleanField(default=False)
 
-    def __str__(self) -> str:
-        return self.username
-
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        profile, created = Profile.objects.get_or_create(user=instance)
-        if not profile.username:
-            profile.username = instance.username
-            profile.save()
+        Profile.objects.get_or_create(user=instance, defaults={'username': instance.username})

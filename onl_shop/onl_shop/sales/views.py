@@ -5,8 +5,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication, TokenUser
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+
 
 
 
@@ -19,11 +21,14 @@ class SaleCreate(generics.CreateAPIView):
     queryset = Sale.objects.all()
     serializer_class = SaleSerializer
     serializer_class.Meta.fields = ['name', 'category', 'description', 'price', 'img']
-    authentication_classes = [IsAuthenticated,]
+    authentication_classes = [JWTTokenUserAuthentication]
+    permission_classes = (IsAuthenticated, )
 
     def perform_create(self, serializer):
     #   przypisuje użytkownika jako sprzedawce
-        serializer.save(seller=self.request.user)
+        user = self.request.user
+        serializer.save(seller=user)
+
 
 class SaleUpdate(generics.UpdateAPIView):
     queryset = Sale.objects.all()

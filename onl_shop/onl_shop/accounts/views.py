@@ -13,8 +13,6 @@ class IsProfileOwner(BasePermission):
             return obj.user == request.user
         return False
 
-
-
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
 

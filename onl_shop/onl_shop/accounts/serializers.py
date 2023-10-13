@@ -2,7 +2,7 @@ from rest_framework_simplejwt.tokens import Token
 from .models import User, Profile
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework import serializers
+from rest_framework import serializers, validators
 from sales.models import Sale
 from django.shortcuts import get_object_or_404
 
