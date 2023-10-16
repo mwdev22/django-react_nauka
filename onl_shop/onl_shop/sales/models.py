@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
 from rest_framework.exceptions import ValidationError
+from django.utils.timezone import now
 
 class Sale(models.Model):
     
@@ -11,6 +12,7 @@ class Sale(models.Model):
     price = models.FloatField()
 
     img = models.ImageField(default='media/sale.jpg')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:

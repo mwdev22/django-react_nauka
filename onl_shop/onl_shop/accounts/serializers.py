@@ -19,6 +19,7 @@ class TokenSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
 
+#   każdy użytkownik ma profil, jest tworzony podczas rejestracji
         p = get_object_or_404(Profile,user=user)
         
         token['full_name'] = p.username
