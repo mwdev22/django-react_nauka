@@ -11,4 +11,5 @@ urlpatterns = [
 #   TRANSACTIONS ENDPOINTS
     path('transactions_list', views.UserTransactionList.as_view()),
     path('new_transaction', views.CreateTransaction.as_view()),
+    path('transaction_detail/<int:pk>/', views.TransactionDetail.as_view())
 ]

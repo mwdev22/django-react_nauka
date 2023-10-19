@@ -1,11 +1,11 @@
 from rest_framework import generics
 from .models import Sale, Transaction
 from .serializers import SaleSerializer, TransactionSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.filters import SearchFilter
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
-from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication, TokenUser
+from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from accounts.models import User
@@ -54,19 +54,21 @@ class SaleDelete(generics.DestroyAPIView):
     # zwraca 204
 
 
+
 class CreateTransaction(generics.CreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [IsAuthenticated,]
     authentication_classes = [JWTTokenUserAuthentication]
 
-    def perform_create(self, serializer):
-        sale = get_object_or_404(Sale, pk=self.request.sale.id)
-        seller = get_object_or_404(User, pk=sale.seller.id)
-        buyer = get_object_or_404(User, pk=self.request.user.id)
+    def perform_create(self, serializer=serializer_class):
+    #   pobieram informacje o aukcji, następnie przyporządkowuje sellerowi, 
+        sale = Sale.objects.get(pk=serializer.validated_data['sale'].id)
+        seller = User.objects.get(pk=sale.seller.id)
+        buyer = User.objects.get(pk=self.request.user.id)
         price = sale.price
+        sale.is_active = False
         serializer.save(seller=seller, sale=sale, buyer=buyer, price=price)
-        
 
 class UserTransactionList(generics.ListAPIView):
     queryset = Transaction.objects.all()
@@ -75,7 +77,17 @@ class UserTransactionList(generics.ListAPIView):
     authentication_classes = [JWTTokenUserAuthentication]
 
     def get_queryset(self):
-        user = get_object_or_404(User, id=self.request.user.id)
+        user = User.objects.get(pk=self.request.user.id)
     #   filtrowanie wyników zapytania, by użytkownik otrzymywał info tylko o swoich transakcjach
+        queryset = Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
+        return queryset
+
+class TransactionDetail(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    permission_classes = [IsAuthenticated,]
+    serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        user = self.request.user
         queryset = Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
         return queryset
