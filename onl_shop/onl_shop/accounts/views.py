@@ -33,3 +33,8 @@ class UpdateProfile(generics.UpdateAPIView):
 
     def get_queryset(self):
         queryset = Profile.objects.filter(user=self.request.user)
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (AllowAny,)

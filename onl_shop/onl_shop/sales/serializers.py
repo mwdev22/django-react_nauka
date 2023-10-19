@@ -6,6 +6,7 @@ class SaleSerializer(ModelSerializer):
     class Meta:
         model = Sale
         fields = '__all__'
+        
 
 class TransactionSerializer(ModelSerializer):
 
