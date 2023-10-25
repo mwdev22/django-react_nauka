@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
     // authentication dzięki formularzom logowania(em,pass)
     const loginUser = async (email, password) => {
-        const response = await fetch("http://127.0.0.1:8000/api/token/", {
+        const response = await fetch("http://127.0.0.1:8000/api/accounts/token/", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 
 // tworzenie użytkownika oraz profilu dzięki post_save w django, w przypadku poprawnych danych
         if(response.status === 201){
-            history("/login")
+            navigate("/login")
             swal.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        history("/login")
+        navigate("/login")
         swal.fire({
             title: "logged out",
             icon: "success",

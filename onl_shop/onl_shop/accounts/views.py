@@ -32,7 +32,11 @@ class UpdateProfile(generics.UpdateAPIView):
     permission_classes = (IsProfileOwner,)
 
     def get_queryset(self):
-        queryset = Profile.objects.filter(user=self.request.user)
+        queryset = Profile.objects.get(user=self.request.user)
+        return queryset
+    
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
