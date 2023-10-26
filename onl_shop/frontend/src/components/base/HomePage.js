@@ -10,8 +10,8 @@ function HomePage() {
 
     const [sales, setSales] = useState([]);
 
+// pobieranie aukcji z api
     useEffect(() => {
-       
         axios.get("http://127.0.0.1:8000/api/sales/list",)
         .then((response) => {
                 setSales(response.data);
@@ -22,10 +22,18 @@ function HomePage() {
     }, []);
 
   return (
-    <div>
-      {auctions.map((sale, index) => (
+    <div class="container">
+      <aside class="filters">
+        <h1>Filters:</h1>
+        <h3>Categories:</h3>
+      </aside>
+      <section class="sale-list">
+      {/* listowanie wszystkich aukcji przy pomocy map */}
+
+      {sales.map((sale, index) => (
                  <Link to={`/sale_detail/${sale.id}`} key={index}>
                     <div className="card-body">
+                        <img id="sale-img" src={sale.img} alt="error rendering photo">
                         <h5 className="card-title">{sale.name}</h5>
                         <p className="card-text">{sale.description}</p>
                         <p className="card-text">Price: {sale.price}</p>
@@ -33,7 +41,7 @@ function HomePage() {
                     </div>
                   </Link>
         ))}
-
+      </section>
     </div>
   )
 }
