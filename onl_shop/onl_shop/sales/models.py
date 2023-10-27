@@ -11,7 +11,7 @@ class Sale(models.Model):
     description = models.TextField()
     price = models.FloatField()
 
-    img = models.ImageField(default='media/sale.jpg')
+    img = models.ImageField(upload_to='media/sale.jpg')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
 

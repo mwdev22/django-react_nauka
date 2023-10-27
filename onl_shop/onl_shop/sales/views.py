@@ -1,7 +1,7 @@
 from rest_framework import generics
 from .models import Sale, Transaction
 from .serializers import SaleSerializer, TransactionSerializer
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.filters import SearchFilter
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
@@ -52,6 +52,11 @@ class SaleDelete(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTTokenUserAuthentication]
     # zwraca 204
+    
+class SaleDetail(generics.RetrieveAPIView):
+    queryset = Sale.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = SaleSerializer
 
 
 

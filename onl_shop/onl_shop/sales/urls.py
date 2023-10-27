@@ -7,6 +7,7 @@ urlpatterns = [
     path('new_sale', views.SaleCreate.as_view()),
     path('sale_update/<int:pk>/', views.SaleUpdate.as_view()),
     path('sale_delete/<int:pk>/', views.SaleDelete.as_view()),
+    path('sale_detail/<int:pk>/', views.SaleDetail.as_view()),
 
 #   TRANSACTIONS ENDPOINTS
     path('transactions_list', views.UserTransactionList.as_view()),
