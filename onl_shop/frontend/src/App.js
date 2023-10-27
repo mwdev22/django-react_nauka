@@ -1,11 +1,17 @@
 import React from 'react';
+import './css/App.css'
+import './css/footer.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
-import LoginPage from './Components/LoginPage';
-import Register from './Components/Register';
-import HomePage from './components/base/HomePage'
+import LoginPage from './components/LoginPage';
+import Register from './components/Register';
+import ShopCenter from './components/ShopCenter'
 import Navbar from './components/base/NavBar';
 import SaleDetail from './components/details/SaleDetail'
+import { ProfileDetail } from './components/details/ProfileDetail'
+import { TransactionDetail } from './components/details/TransactionDetail';
+import { HomePage } from './components/base/HomePage';
+import Footer from './components/base/Footer';
 
 function App() {
   return (
@@ -14,10 +20,14 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/shop_center" element={<ShopCenter />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path='/sale_detail/:id' element={<SaleDetail />} />
+          <Route path='/profile/:id' element={<ProfileDetail />} />
+          <Route path='/transaction/:id' element={<TransactionDetail />} />
         </Routes>
+        <Footer />
       </AuthProvider>
     </Router>
   );
