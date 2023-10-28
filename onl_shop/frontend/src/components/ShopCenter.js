@@ -33,7 +33,7 @@ function ShopCenter() {
       <section className="sale-list">
       {/* listowanie wszystkich aukcji przy pomocy map */}
 
-      {sales.map((sale, index) => (
+        {sales.map((sale, index) => (
                  <Link to={`/sale_detail/${sale.id}`} key={index}>
                   <div className='card'>
                     <div className="card-body">

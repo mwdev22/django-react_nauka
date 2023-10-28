@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
     // authentication dzięki formularzom logowania(em,pass)
     const loginUser = async (email, password) => {
-        const response = await fetch("http://127.0.0.1:8000/api/accounts/token/", {
+        const response = await fetch("http://127.0.0.1:8000/api/accounts/token", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
@@ -76,7 +76,8 @@ export const AuthProvider = ({ children }) => {
     }
 // rejestracja (wszystkie potrzebne dane do utworzenia przez request, satysfakcjonujące model)
     const registerUser = async (email, username, password, password2) => {
-        const response = await fetch("http://127.0.0.1:8000/api/register/", {
+        console.log(email, username, password, password2)
+        const response = await fetch("http://127.0.0.1:8000/api/accounts/register", {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"

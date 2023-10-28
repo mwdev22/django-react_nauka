@@ -7,13 +7,14 @@ function Navbar() {
   // Authorization using context
   const { user, logoutUser } = useContext(AuthContext);
   const token = localStorage.getItem("authTokens");
+  let user_id = 0;
 
-  // Decode the token if the user is logged in
+  // dekodowanie tokenu jeśli user jset zalogowany
   if (token) {
     const decoded = jwt_decode(token);
-    var user_id = decoded.user_id;
+    user_id = decoded.user_id;
   }
-
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
@@ -50,7 +51,7 @@ function Navbar() {
               {token !== null &&
                 <>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Dashboard</a>
+                    <Link to={`/profile/${user_id}`}>Profile</Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" onClick={logoutUser} style={{ cursor: "pointer" }}>Logout</a>
