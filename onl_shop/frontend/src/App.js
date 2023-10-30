@@ -12,6 +12,7 @@ import { ProfileDetail } from './components/details/ProfileDetail'
 import { TransactionDetail } from './components/details/TransactionDetail';
 import { HomePage } from './components/base/HomePage';
 import Footer from './components/base/Footer';
+import { NewSale } from './components/NewSale';
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/shop_center" element={<ShopCenter />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/shop_center" element={<ShopCenter />} />
           <Route path='/sale_detail/:id' element={<SaleDetail />} />
+          <Route path='/new_sale' element={<NewSale />} />
           <Route path='/profile/:id' element={<ProfileDetail />} />
           <Route path='/transaction/:id' element={<TransactionDetail />} />
         </Routes>

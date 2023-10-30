@@ -5,6 +5,9 @@ import axios from 'axios';
 
 export const ProfileDetail = () => {
   const [profile, setProfile] = useState({});
+  const [transactions, setTransactions] = useState([]);
+  const [sales, setSales] = useState([]);
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState({});
 
@@ -12,6 +15,41 @@ export const ProfileDetail = () => {
   const params = useParams();
   const user_id = parseInt(params.id, 10);
 
+  useEffect(() => {
+    if (authTokens) {
+      const requests = [
+        axios.get(`http://127.0.0.1:8000/api/accounts/profile_detail/${user_id}`, {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }),
+        axios.get('http://127.0.0.1:8000/api/sales/transactions_list', {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }),
+        axios.get('http://127.0.0.1:8000/api/sales/user_sales', {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }),
+      ];
+      Promise.all(requests)
+        .then(([profileResponse, transactionsResponse, salesResponse]) => {
+          console.log(profileResponse.data);
+          setProfile(profileResponse.data);
+          console.log(transactionsResponse.data);
+          setTransactions(transactionsResponse.data);
+          console.log(salesResponse.data);
+          setSales(salesResponse.data)
+        })
+        .catch((error) => {
+          console.error('Error while fetching data', error);
+        });
+    }
+  }, [user_id, authTokens]);
+  
+/*
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/accounts/profile_detail/${user_id}`, {
@@ -27,6 +65,39 @@ export const ProfileDetail = () => {
         console.error('Error while getting user profile', error);
       });
   }, [user_id, authTokens]);
+
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:8000/api/accounts/transactions_list', {
+        headers: {
+          Authorization: `Bearer ${authTokens?.access}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error while getting user transactions', error);
+      });
+
+  }, [authTokens])
+
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:8000/api/accounts/user_sales', {
+        headers: {
+          Authorization: `Bearer ${authTokens?.access}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error while getting user sales', error);
+      });
+
+  }, [authTokens])
+*/
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -87,10 +158,16 @@ export const ProfileDetail = () => {
             <button onClick={handleSaveClick}>Save</button>
           </div>
         ) : (
-          <div>
-            <h2>{profile.username}</h2>
-            <p>{profile.bio}</p>
-            <button onClick={handleEditClick}>Edit</button>
+          <div className='detail-box'>
+            <div className='d-col'>
+              <img id="detail-img" src={profile.img} />
+              <h2>{profile.username}</h2>
+              <p>{profile.bio}</p>
+              <button onClick={handleEditClick}>Edit</button>
+            </div>
+            <div className='items-col'>
+              
+            </div>
           </div>
         )}
       </section>

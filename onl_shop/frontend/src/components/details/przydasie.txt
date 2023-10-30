@@ -1,0 +1,33 @@
+useEffect(() => {
+  if (authTokens) {
+    // Tworzymy tablicę z żądaniami, które chcemy wykonać
+    const requests = [
+      axios.get(`http://127.0.0.1:8000/api/accounts/profile_detail/${user_id}`, {
+        headers: {
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      }),
+      axios.get('http://127.0.0.1:8000/api/accounts/transactions_list', {
+        headers: {
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      }),
+      axios.get('http://127.0.0.1:8000/api/accounts/user_sales', {
+        headers: {
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      }),
+    ];
+
+    // Wykonujemy wszystkie żądania równocześnie
+    Promise.all(requests)
+      .then(([profileResponse, transactionsResponse, salesResponse]) => {
+        console.log(profileResponse.data);
+        setProfile(profileResponse.data);
+        console.log(transactionsResponse.data);
+        setTransactions(transactionsResponse.data);
+        console.log(salesResponse.data);
+      })
+      .catch((error) => {
+        console.error('Error while fetching data', error);
+      });
