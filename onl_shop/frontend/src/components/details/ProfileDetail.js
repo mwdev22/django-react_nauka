@@ -131,6 +131,8 @@ export const ProfileDetail = () => {
   const handlePictureChange = (e) => {
     const file = e.target.files[0];
     setNewProfilePicture(file);
+    setEditedProfile({ ...editedProfile, [img]: file })
+    console.log(editedProfile.img)
   };
 
   return (
@@ -166,10 +168,30 @@ export const ProfileDetail = () => {
               <button onClick={handleEditClick}>Edit</button>
             </div>
             <div className='items-col'>
-              
+            {sales.map((sale, index) => (
+                 <Link to={`/sale_detail/${sale.id}`} key={index}>
+                  <div className='card'>
+                    <div className="card-body">
+                      <img src={sale.img} height={400} width={250} />
+                        <h5 className="card-title">{sale.name}</h5>
+                    </div>
+                  </div>
+                  </Link>
+                ))}
             </div>
           </div>
         )}
+      </section>
+
+      <section className='trs-sect'>
+      {transactions.map((transaction, index) => (
+                 <Link to={`/sale_detail/${transaction.id}`} key={index}>
+                  <div className='trs-card'>
+                      <img src={transaction.sale.img} height={400} width={250} />
+                        <h5 className="card-title">{transaction.transaction_date}</h5>
+                  </div>
+                  </Link>
+                ))}
       </section>
     </div>
   );

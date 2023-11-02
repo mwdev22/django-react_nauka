@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AuthContext from '../auth/AuthContext'
 
 export const NewSale = () => {
@@ -22,23 +23,22 @@ export const NewSale = () => {
           },
         })
         .then((response) => {
-      
+          console.log(response.data)
         })
         .catch((error) => {
           console.error('Error while creating sale', error);
-      
         });
     
       };
 
       const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setEditedProfile({ ...editedProfile, [name]: value });
+        setNewSale({ ...newSale, [name]: value });
       };
     
-      const handlePictureChange = (e) => {
+      const handleSalePicture = (e) => {
         const file = e.target.files[0];
-        setNewProfilePicture(file);
+        setNewSale({ ...newSale, 'file' : file });
       };
     
 
@@ -64,9 +64,9 @@ export const NewSale = () => {
              <input
               type="file"
               name="img"
-              onChange={handlePictureChange}
+              onChange={handleSalePicture}
             />
-            <button onClick={handleSaveClick}>Save</button>
+            <button onClick={handleSaveClick}>Add Sale!</button>
           </div>
           <div>
           </div>
