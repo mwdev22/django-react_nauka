@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import AuthContext from '../../auth/AuthContext';
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ export const ProfileDetail = () => {
   const [transactions, setTransactions] = useState([]);
   const [sales, setSales] = useState([]);
 
+  const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState({});
 
@@ -131,8 +132,8 @@ export const ProfileDetail = () => {
   const handlePictureChange = (e) => {
     const file = e.target.files[0];
     setNewProfilePicture(file);
-    setEditedProfile({ ...editedProfile, [img]: file })
-    console.log(editedProfile.img)
+    setEditedProfile({ ...editedProfile, img: file }); // Use "img" as a string
+    console.log(editedProfile.img);
   };
 
   return (
@@ -185,7 +186,7 @@ export const ProfileDetail = () => {
 
       <section className='trs-sect'>
       {transactions.map((transaction, index) => (
-                 <Link to={`/sale_detail/${transaction.id}`} key={index}>
+                 <Link to={`/transaction/${transaction.id}`} key={index}>
                   <div className='trs-card'>
                       <img src={transaction.sale.img} height={400} width={250} />
                         <h5 className="card-title">{transaction.transaction_date}</h5>

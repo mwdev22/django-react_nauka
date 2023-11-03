@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import AuthContext from '../../auth/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
   // Authorization using context
+  const [searchInput, setSearchInput] = useState('');
   const { user, logoutUser } = useContext(AuthContext);
   const token = localStorage.getItem("authTokens");
   let user_id = 0;
@@ -14,6 +15,15 @@ function Navbar() {
     const decoded = jwt_decode(token);
     user_id = decoded.user_id;
   }
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const navigate = useNavigate()
+
+  const handleSearchButtonClick = () => {
+    navigate(`/shop_center?search=${searchInput}`);
+  };
   
   return (
     <div>
@@ -51,10 +61,21 @@ function Navbar() {
               {token !== null &&
                 <>
                   <li className="nav-item">
-                    <Link to={`/profile/${user_id}`}>Profile</Link>
+                    <Link className='nav-link' to={`/profile/${user_id}`}>Profile</Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" onClick={logoutUser} style={{ cursor: "pointer" }}>Logout</a>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link className='nav-link' to={`/new_sale`}>Sell item</Link>
+                  </li>
+                  
+                  <li>
+                    <div id='search'>
+                      <input type="search" id="nav-search" onChange={handleSearchInputChange} />
+                      <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>Search item</button>
+                    </div>
                   </li>
                 </>
               }
