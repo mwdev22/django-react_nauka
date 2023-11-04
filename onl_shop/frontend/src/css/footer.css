@@ -1,3 +1,23 @@
 .footer{
     font-size: 2rem;
 }
+
+#navb {
+    background-color: black;
+}
+
+.lista{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+.lista li a{
+    margin: 0;
+    text-decoration: none;
+    color: black;
+}
+.lista li a:hover{
+    color:rgb(133, 127, 127);
+}

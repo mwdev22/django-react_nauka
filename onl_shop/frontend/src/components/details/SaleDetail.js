@@ -59,6 +59,28 @@ const SaleDetail = () => {
       });
   };
 
+  const deleteSale = () => {
+    axios.delete(`http://127.0.0.1:8000/api/sales/sale_delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authTokens.access}`,
+      },
+    }).then( (response) => {
+      console.log(response.data)
+      swal.fire({
+        title: "Successful deleted sale!",
+        icon: "success",
+        toast: true,
+        timer: 6000,
+        position: 'top-right',
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+      navigate('/')
+    }).catch((error) => {
+      console.error('error while deleting sale', error)
+    })
+  }
+
   return (
     <div>
       <div className='container'>

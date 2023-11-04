@@ -1,7 +1,28 @@
 .main-detail{
-    min-height: 100vh;
+    min-height: 95vh;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
+
+.edit-box{
+  min-width: 70vw;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(168, 187, 220);
+  box-shadow: 0.4rem 1rem rgb(131, 156, 200);
+}
+.edit-box input,textarea,button{
+  margin-bottom: 2rem;
+}
+
+.detail-box{
+  min-width: 70vw;
+  min-height: 60vh;
+  display: flex;
+  gap: 2rem;
+  background-color: rgb(168, 187, 220);
+  box-shadow: 0.4rem 1rem rgb(131, 156, 200);
   
+}

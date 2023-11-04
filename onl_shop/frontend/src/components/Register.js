@@ -9,8 +9,9 @@ function Registerpage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [password2, setPassword2] = useState("")
-
+  
   const {registerUser} = useContext(AuthContext)
+
 
   const handleSubmit = async e => {
     e.preventDefault()

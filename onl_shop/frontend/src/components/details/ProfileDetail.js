@@ -138,10 +138,10 @@ export const ProfileDetail = () => {
 
   return (
     <div>
-      <section className="main-detail">
+      <main className="main-detail">
         <img src={profile.img} alt={profile.username} />
         {isEditing ? (
-          <div>
+          <div className='edit-box'>
             <input
               type="text"
               name="username"
@@ -182,7 +182,7 @@ export const ProfileDetail = () => {
             </div>
           </div>
         )}
-      </section>
+      </main>
 
       <section className='trs-sect'>
       {transactions.map((transaction, index) => (

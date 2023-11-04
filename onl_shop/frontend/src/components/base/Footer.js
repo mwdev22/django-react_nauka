@@ -12,7 +12,7 @@ const Footer = () => {
             </div>
             <div className="col-md-4">
               <h4>Kategorie</h4>
-              <ul>
+              <ul className='lista'>
                 <li><a href="#">Clothes</a></li>
                 <li><a href="#">Electronics</a></li>
                 <li><a href="#">Food</a></li>
