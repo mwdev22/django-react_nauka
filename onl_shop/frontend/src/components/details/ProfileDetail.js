@@ -50,55 +50,6 @@ export const ProfileDetail = () => {
     }
   }, [user_id, authTokens]);
   
-/*
-  useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/api/accounts/profile_detail/${user_id}`, {
-        headers: {
-          Authorization: `Bearer ${authTokens?.access}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data)
-        setProfile(response.data);
-      })
-      .catch((error) => {
-        console.error('Error while getting user profile', error);
-      });
-  }, [user_id, authTokens]);
-
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/api/accounts/transactions_list', {
-        headers: {
-          Authorization: `Bearer ${authTokens?.access}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.error('Error while getting user transactions', error);
-      });
-
-  }, [authTokens])
-
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/api/accounts/user_sales', {
-        headers: {
-          Authorization: `Bearer ${authTokens?.access}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.error('Error while getting user sales', error);
-      });
-
-  }, [authTokens])
-*/
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -106,22 +57,29 @@ export const ProfileDetail = () => {
   };
 
   const handleSaveClick = () => {
+    const formData = new FormData();
+    formData.append('username', editedProfile.username);
+    formData.append('bio', editedProfile.bio);
+    if (newProfilePicture) {
+      formData.append('img', newProfilePicture);
+    }
 
-    axios.patch(`http://127.0.0.1:8000/api/accounts/profile_detail/${user_id}/`, editedProfile, {
-      headers: {
-        Authorization: `Bearer ${authTokens?.access}`,
-      },
-    })
-    .then((response) => {
-      setProfile(response.data);
-      setIsEditing(false);
-    })
-    .catch((error) => {
-      console.error('Error while saving user profile', error);
-      setIsEditing(false);
-    });
-
-    setIsEditing(false);
+    axios
+      .patch(`http://127.0.0.1:8000/api/accounts/profile_detail/${user_id}/`, formData, {
+        headers: {
+          Authorization: `Bearer ${authTokens?.access}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        setProfile(response.data);
+        console.log(response.data)
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error('Error while saving user profile', error);
+        console.log(error.response.data)
+      });
   };
 
   const handleInputChange = (e) => {
@@ -139,7 +97,6 @@ export const ProfileDetail = () => {
   return (
     <div>
       <main className="main-detail">
-        <img src={profile.img} alt={profile.username} />
         {isEditing ? (
           <div className='edit-box'>
             <input
@@ -163,7 +120,7 @@ export const ProfileDetail = () => {
         ) : (
           <div className='detail-box'>
             <div className='d-col'>
-              <img id="detail-img" src={profile.img} />
+              <img src={profile.img} alt={profile.username} id="prof-img" />
               <h2>{profile.username}</h2>
               <p>{profile.bio}</p>
               <button onClick={handleEditClick}>Edit</button>
@@ -188,7 +145,7 @@ export const ProfileDetail = () => {
       {transactions.map((transaction, index) => (
                  <Link to={`/transaction/${transaction.id}`} key={index}>
                   <div className='trs-card'>
-                      <img src={transaction.sale.img} height={400} width={250} />
+                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />
                         <h5 className="card-title">{transaction.transaction_date}</h5>
                   </div>
                   </Link>

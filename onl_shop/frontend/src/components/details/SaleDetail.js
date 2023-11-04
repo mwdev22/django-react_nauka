@@ -24,9 +24,11 @@ const SaleDetail = () => {
       .then((response) => {
         setSale(response.data);
         console.log(response.data);
+        console.log(sale.seller.id)
+        console.log(user_id)
       })
       .catch((error) => {
-        console.log(sale, error);
+        console.log('error getting sales', error);
       });
   }, [id]);
 
@@ -56,6 +58,7 @@ const SaleDetail = () => {
       })
       .catch((error) => {
         console.error('Failed to buy an item', error);
+        console.log(error.response.data)
       });
   };
 
@@ -83,7 +86,7 @@ const SaleDetail = () => {
 
   return (
     <div>
-      <div className='container'>
+      <div className='main-detail'>
         <section className="sale-desc">
           <img src={sale.img} alt="" srcSet="" />
           <p>{sale.description}</p>
@@ -92,13 +95,20 @@ const SaleDetail = () => {
         <section className="sale-info">
           <h1>{sale.name}</h1>
           <p>{sale.price}</p>
-          <button id='submit-btn' onClick={doTransaction}>
-            BUY NOW
-          </button>
+          {user_id === sale.seller.id ? (
+            <button id='delete-btn' onClick={deleteSale}>
+              DELETE SALE
+            </button>
+          ) : (
+            <button id='submit-btn' onClick={doTransaction}>
+              BUY NOW
+            </button>
+          )}
         </section>
       </div>
     </div>
   );
 };
+
 
 export default SaleDetail;

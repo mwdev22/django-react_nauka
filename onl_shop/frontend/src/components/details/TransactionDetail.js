@@ -26,8 +26,9 @@ export const TransactionDetail = () => {
       })
       .catch((error) => {
         console.error('error while getting transaction', error);
+        console.log(error.respone)
       });
-  }, []); 
+  }, [transID]); 
   
 
   return (

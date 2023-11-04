@@ -1,5 +1,5 @@
 .main-detail{
-    min-height: 95vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,4 +25,19 @@
   background-color: rgb(168, 187, 220);
   box-shadow: 0.4rem 1rem rgb(131, 156, 200);
   
+}
+
+.d-col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.d-col 
+
+#prof-img{
+  width: 20rem;
+  height: 20rem;
 }
