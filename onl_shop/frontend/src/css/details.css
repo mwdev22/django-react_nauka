@@ -35,9 +35,16 @@
   width: 50%;
 }
 
-.d-col 
+.d-col p{
+  
+} 
 
 #prof-img{
+  width: 20rem;
+  height: 20rem;
+}
+
+#sale-det-img{
   width: 20rem;
   height: 20rem;
 }

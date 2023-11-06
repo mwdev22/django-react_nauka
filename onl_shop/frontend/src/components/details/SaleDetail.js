@@ -7,9 +7,10 @@ import AuthContext from '../../auth/AuthContext';
 import swal from 'sweetalert2';
 
 const SaleDetail = () => {
-  const { id } = useParams();
+  const id = useParams().id;
   const { authTokens } = useContext(AuthContext);
   const [sale, setSale] = useState({});
+  const [seller_id, setSellerID] = useState(0)
   const token = localStorage.getItem("authTokens");
   let user_id = 0;
   
@@ -19,18 +20,19 @@ const SaleDetail = () => {
   }
 
   const navigate = useNavigate(); 
+
   useEffect(() => {
     axios.get(`http://127.0.0.1:8000/api/sales/sale_detail/${id}`)
       .then((response) => {
         setSale(response.data);
         console.log(response.data);
-        console.log(sale.seller.id)
         console.log(user_id)
+        setSellerID(response.data.seller.id)
       })
       .catch((error) => {
         console.log('error getting sales', error);
       });
-  }, [id]);
+  }, [id,user_id]);
 
   const doTransaction = () => {
     axios
@@ -88,14 +90,14 @@ const SaleDetail = () => {
     <div>
       <div className='main-detail'>
         <section className="sale-desc">
-          <img src={sale.img} alt="" srcSet="" />
+          <img id='sale-det-img' src={sale.img} alt="" srcSet="" />
           <p>{sale.description}</p>
         </section>
 
         <section className="sale-info">
           <h1>{sale.name}</h1>
           <p>{sale.price}</p>
-          {user_id === sale.seller.id ? (
+          {user_id === seller_id ? (
             <button id='delete-btn' onClick={deleteSale}>
               DELETE SALE
             </button>
