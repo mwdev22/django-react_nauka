@@ -16,6 +16,8 @@ export const ProfileDetail = () => {
   const params = useParams();
   const user_id = parseInt(params.id, 10);
 
+
+// pobieranie atrybutów użytkownika, listę jego aukcji oraz listę transakcji
   useEffect(() => {
     if (authTokens) {
       const requests = [
@@ -35,6 +37,7 @@ export const ProfileDetail = () => {
           },
         }),
       ];
+      // przypisywanie atrybutów elementom state, aby można było z nich wygodnie korzystać w komponencie
       Promise.all(requests)
         .then(([profileResponse, transactionsResponse, salesResponse]) => {
           console.log(profileResponse.data);
@@ -46,16 +49,20 @@ export const ProfileDetail = () => {
         })
         .catch((error) => {
           console.error('Error while fetching data', error);
+          console.log(error.request.response.data)
         });
+    }else{
+      console.log('you are not logged in')
     }
   }, [user_id, authTokens]);
   
-
+// funkcja umożliwiająca edycję
   const handleEditClick = () => {
     setIsEditing(true);
     setEditedProfile({ ...profile });
   };
 
+  // zapisywanie edytowanego profilu do bazy danych
   const handleSaveClick = () => {
     const formData = new FormData();
     formData.append('username', editedProfile.username);
@@ -73,7 +80,6 @@ export const ProfileDetail = () => {
       })
       .then((response) => {
         setProfile(response.data);
-        console.log(response.data)
         setIsEditing(false);
       })
       .catch((error) => {
@@ -82,6 +88,7 @@ export const ProfileDetail = () => {
       });
   };
 
+  // aktualizowanie edytowanego profilu
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedProfile({ ...editedProfile, [name]: value });
@@ -90,8 +97,7 @@ export const ProfileDetail = () => {
   const handlePictureChange = (e) => {
     const file = e.target.files[0];
     setNewProfilePicture(file);
-    setEditedProfile({ ...editedProfile, img: file }); // Use "img" as a string
-    console.log(editedProfile.img);
+    setEditedProfile({ ...editedProfile, img: file }); 
   };
 
   return (
@@ -99,17 +105,20 @@ export const ProfileDetail = () => {
       <main className="main-detail">
         {isEditing ? (
           <div className='edit-box'>
+            <label htmlFor='username'>Username:</label>
             <input
               type="text"
               name="username"
               value={editedProfile.username}
               onChange={handleInputChange}
             />
+            <label htmlFor='bio'>Bio:</label>
             <textarea
               name="bio"
               value={editedProfile.bio}
               onChange={handleInputChange}
             />
+            <label htmlFor='img'></label>
              <input
               type="file"
               name="img"

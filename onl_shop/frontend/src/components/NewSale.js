@@ -26,6 +26,7 @@ export const NewSale = () => {
   }
 
   const handleSaveClick = () => {
+    // form data umożliwia poprawne przesłanie pliku
     const formData = new FormData();
     formData.append('name', newSale.name);
     formData.append('description', newSale.description);
@@ -51,6 +52,7 @@ export const NewSale = () => {
       });
   };
 
+  // przypisywanie atrybutów nowej aukcji
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewSale({ ...newSale, [name]: value });

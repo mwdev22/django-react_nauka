@@ -150,6 +150,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(false)
     }, [authTokens, loading])
 
+// provider pozwala na korzystanie z parametrów kontekstu
     return (
         <AuthContext.Provider value={contextData}>
             {loading ? null : children}

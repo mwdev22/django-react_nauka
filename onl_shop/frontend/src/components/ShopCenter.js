@@ -9,9 +9,9 @@ function ShopCenter() {
     const [sales, setSales] = useState([]);
 
     const location = useLocation();
-    const searchQuery = new URLSearchParams(location.search).get('search');
+    const searchQuery = new URLSearchParams(location.search).get('search'); // pobieranie parametrów filtrowania
 
-// pobieranie aukcji z api
+// pobieranie wszystkich aukcji z api, uwzględniając filtry
     useEffect(() => {
         if (searchQuery){
           console.log(searchQuery)

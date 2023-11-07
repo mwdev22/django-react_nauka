@@ -7,6 +7,8 @@ import AuthContext from '../../auth/AuthContext';
 import swal from 'sweetalert2';
 
 const SaleDetail = () => {
+
+  // pobieranie parametrów i inicjalizowanie obiektów
   const id = useParams().id;
   const { authTokens } = useContext(AuthContext);
   const [sale, setSale] = useState({});
@@ -21,6 +23,7 @@ const SaleDetail = () => {
 
   const navigate = useNavigate(); 
 
+  // pobieranie atrybutów sale
   useEffect(() => {
     axios.get(`http://127.0.0.1:8000/api/sales/sale_detail/${id}`)
       .then((response) => {
@@ -34,6 +37,7 @@ const SaleDetail = () => {
       });
   }, [id,user_id]);
 
+  // tworzenie transakcji w przypadku zakupu
   const doTransaction = () => {
     axios
       .post('http://127.0.0.1:8000/api/sales/new_transaction', {
@@ -64,6 +68,8 @@ const SaleDetail = () => {
       });
   };
 
+
+// możliwość usunięcia sale, gdy właścicielem aukcji jest użytkownik
   const deleteSale = () => {
     axios.delete(`http://127.0.0.1:8000/api/sales/sale_delete/${id}`, {
       headers: {

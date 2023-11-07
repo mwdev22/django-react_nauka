@@ -112,17 +112,6 @@ function Loginpage() {
       </div>
     </div>
   </section>
-  <footer className="bg-light text-center text-lg-start">
-    <div
-      className="text-center p-3"
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-    >
-      © 2023 - till date Copyright:
-      <a className="text-dark" href="https://mdbootstrap.com/">
-        mwdev22.com
-      </a>
-    </div>
-  </footer>
 </>
 
     </div>

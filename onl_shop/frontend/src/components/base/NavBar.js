@@ -4,7 +4,7 @@ import AuthContext from '../../auth/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
-  // Authorization using context
+  // autoryzacja przy użyciu kontekstu
   const [searchInput, setSearchInput] = useState('');
   const { user, logoutUser } = useContext(AuthContext);
   const token = localStorage.getItem("authTokens");
