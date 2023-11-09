@@ -152,12 +152,23 @@ export const ProfileDetail = () => {
 
       <section className='trs-sect'>
       {transactions.map((transaction, index) => (
+                (transaction.seller.id===user_id) ? (
                  <Link to={`/transaction/${transaction.id}`} key={index}>
-                  <div className='trs-card'>
-                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />
-                        <h5 className="card-title">{transaction.transaction_date}</h5>
+                  
+                  <div className='trs-card' style={color=green}>
+                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />  
+                        <h5>{transaction.sale}</h5>
+                        <h5>{transaction.transaction_date}</h5>
                   </div>
                   </Link>
+                  ) : (<Link to={`/transaction/${transaction.id}`} key={index}>
+                  
+                  <div className='trs-card' style={color=red}>
+                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />  
+                        <h5>{transaction.sale}</h5>
+                        <h5>{transaction.transaction_date}</h5>
+                  </div>
+                  </Link>)
                 ))}
       </section>
     </div>
