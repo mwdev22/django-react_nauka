@@ -5,6 +5,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from rest_framework.permissions import AllowAny,IsAuthenticated,BasePermission
 from rest_framework.response import Response
+from django.contrib.auth import get_user_model
+from rest_framework import status
 
 # customowy permission model, pozwala uzyskać dostęp do edycji określonego profilu tylko jego właścicielowi
 class IsProfileOwner(BasePermission):
@@ -25,20 +27,48 @@ class ProfileView(generics.ListAPIView):
     queryset = Profile.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = ProfileSerializer
-
-class UpdateProfile(generics.UpdateAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-    permission_classes = (IsProfileOwner,)
-
-    def get_queryset(self):
-        queryset = Profile.objects.get(user=self.request.user)
-        return queryset
     
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
+
+@api_view(['GET', 'PATCH'])
+def profile_detail(request, pk):
+#   pobieranie profilu użytkownika na podstawie otrzymanego w requescie id użytkownika
+    if request.method == 'GET':
+        user = User.objects.get(pk=pk)
+        if user:
+            profile = Profile.objects.get(user=user)
+            serializer = ProfileSerializer(profile)
+
+# aktualizuje dane, by zwracały ścieżkę bezwzględną do obrazka
+            img_url = request.build_absolute_uri(profile.img.url)
+            profile_data = serializer.data
+            profile_data['img'] = img_url  
+
+            return Response(profile_data, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+# aktualizacja profilu
+    elif request.method == 'PATCH':
+        user = User.objects.get(pk=pk)
+        print(user)
+        if user:
+            profile = Profile.objects.get(user=user)
+            print(profile)
+            serializer = ProfileSerializer(profile, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                    
+# aktualizuje dane, by zwracały ścieżkę bezwzględną do obrazka
+                img_url = request.build_absolute_uri(profile.img.url)
+                profile_data = serializer.data
+                profile_data['img'] = img_url 
+
+                return Response(profile_data)
+            
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    

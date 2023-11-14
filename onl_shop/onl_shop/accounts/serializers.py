@@ -1,3 +1,4 @@
+from rest_framework.fields import empty
 from rest_framework_simplejwt.tokens import Token
 from .models import User, Profile
 from django.contrib.auth.password_validation import validate_password
@@ -14,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class TokenSerializer(TokenObtainPairSerializer):
     
-    # przypisanie parametrów do tokenu
+#   przypisanie dodatkowych parametrów do tokenu
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -22,6 +23,7 @@ class TokenSerializer(TokenObtainPairSerializer):
 #   każdy użytkownik ma profil, jest tworzony podczas rejestracji
         p = get_object_or_404(Profile,user=user)
         
+#   zdekodowany token daje dostęp do poniższych informacji
         token['full_name'] = p.username
         token['username'] = user.username
         token['email'] = user.email
@@ -42,6 +44,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['email', 'username', 'password', 'password2']  
     
+#   sprawdzanie, czy powtórzone hasło jest zgodne
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError(
@@ -59,7 +62,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
     
 class ProfileSerializer(serializers.ModelSerializer):
-        
+    
     class Meta:
         model = Profile
         fields = '__all__'
+
+    
+
+
+    
+        

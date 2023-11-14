@@ -2,11 +2,11 @@
 from pathlib import Path
 import os
 from datetime import timedelta
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = "django-insecure-#jvk84#ir@c(vj(4qv*u0^zzzrwm15%j-yp8cfp!!c(2j)a&o&"
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=6),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -124,7 +124,7 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_LIFETIME': timedelta(hours=6),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 

@@ -11,13 +11,14 @@ class Sale(models.Model):
     description = models.TextField()
     price = models.FloatField()
 
-    img = models.ImageField(upload_to='media/sale.jpg')
+    img = models.ImageField(upload_to='media/sales', default='sales/sale.png')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.name
     
+# każda transakcja jest odnotowywana
 class Transaction(models.Model):
     seller = models.ForeignKey(User, related_name='sold', on_delete=models.SET_NULL, null=True)
     sale = models.ForeignKey(Sale, related_name='transaction', on_delete=models.SET_NULL, null=True)
@@ -25,6 +26,7 @@ class Transaction(models.Model):
     transaction_date = models.DateTimeField(auto_now_add=True)  
     price = models.FloatField()
 
+#   sanitaryzacja danych, uniemożliwienie kupienia przedmiotu jego właścicielowi
     def clean(self):
         if self.seller == self.buyer:
             raise ValidationError("Seller and buyer cannot be the same user.")

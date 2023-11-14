@@ -1,0 +1,22 @@
+
+#auth-form div{
+    font-size: 2rem;
+}
+
+#auth-form div {
+    font-size: 2rem;
+}
+
+#auth-form h5 {
+    font-size: 2rem;
+}
+
+#auth-form div input{
+    font-size: 2rem;
+    outline: 0;
+    transition: 0.5s;
+}
+
+#auth-form div input:focus{
+    background-color: rgb(188, 188, 239);
+}

@@ -9,7 +9,7 @@ class SaleSerializer(ModelSerializer):
         fields = '__all__'
         extra_fields = ['seller']
 
-#   listowanie wszystkich atrybutów użytkownika, zamiast samego użytkownika
+#   overriding wyświetlania atrybutów użytkownika
     def to_representation(self, instance):
         representation = super(SaleSerializer, self).to_representation(instance)
         seller_data = UserSerializer(instance.seller).data
@@ -18,9 +18,21 @@ class SaleSerializer(ModelSerializer):
         
 
 class TransactionSerializer(ModelSerializer):
-    seller = UserSerializer()
-    buyer = UserSerializer()
-    sale = SaleSerializer()
     class Meta:
         model = Transaction
-        fields = ['id','seller','sale','buyer','price',]
+        fields = '__all__'
+        extra_fields=['seller','buyer','sale']
+
+#   overriding realted fields
+    def to_representation(self, instance):
+        representation = super(TransactionSerializer, self).to_representation(instance)
+        seller_data = UserSerializer(instance.seller).data
+        buyer_data = UserSerializer(instance.buyer).data
+        sale_data = SaleSerializer(instance.sale).data
+        representation['seller'] = seller_data
+        representation['buyer'] = buyer_data
+        representation['sale'] = sale_data
+        return representation
+    
+    
+    
