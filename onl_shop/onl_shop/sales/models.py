@@ -15,6 +15,8 @@ class Sale(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
 
+    
+
     def __str__(self) -> str:
         return self.name
     

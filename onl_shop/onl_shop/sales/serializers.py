@@ -15,7 +15,7 @@ class SaleSerializer(ModelSerializer):
         seller_data = UserSerializer(instance.seller).data
         representation['seller'] = seller_data
         return representation
-        
+    
 
 class TransactionSerializer(ModelSerializer):
     class Meta:

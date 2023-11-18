@@ -136,6 +136,18 @@ class UserTransactionList(generics.ListAPIView):
     #   filtrowanie wyników zapytania, by użytkownik otrzymywał info tylko o swoich transakcjach
         queryset = Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
         return queryset
+    
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+
+    #   buduje url dla obrazków, by móc poprawnie wyświetlać je gdy są zagnieżdżonym obiektem w ProfileDetail
+        for transaction_data in serializer.data:
+            img_url = request.build_absolute_uri(transaction_data['sale']['img'])
+            transaction_data['sale']['img'] = img_url
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TransactionDetail(generics.RetrieveAPIView):
@@ -143,3 +155,4 @@ class TransactionDetail(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated,]
     authentication_classes = [JWTTokenUserAuthentication]
     serializer_class = TransactionSerializer
+

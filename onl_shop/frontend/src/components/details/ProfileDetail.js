@@ -43,8 +43,9 @@ export const ProfileDetail = () => {
       Promise.all(requests)
         .then(([profileResponse, transactionsResponse, salesResponse]) => {
           console.log(profileResponse.data);
+          console.log(profileResponse.data.img)
           setProfile(profileResponse.data);
-          console.log(transactionsResponse.data);
+          console.log(transactionsResponse.data.sale);
           setTransactions(transactionsResponse.data);
           console.log(salesResponse.data);
           setSales(salesResponse.data)
@@ -134,19 +135,22 @@ export const ProfileDetail = () => {
           <div className='detail-box'>
             <div className='d-col'>
               <img src={profile.img} alt={profile.username} id="prof-img" />
-              <h2>{profile.username}</h2>
-              <p>{profile.bio}</p>
-              <button onClick={handleEditClick}>Edit</button>
+              <h2 style={{fontSize:'3rem', fontWeight: '700', marginTop: '2rem'}}>{profile.username}</h2>
+              <p style={{height:'fit-content', fontSize: '2rem', marginBottom: '4rem'}}>{profile.bio}</p>
+              <button className='e-btn' onClick={handleEditClick}>Edit</button>
             </div>
+            
+            <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+              <span style={{textAlign: 'center', fontSize: '4rem', fontWeight: '600'}}>Your sales</span>
             <div className='items-col'>
             {sales.map((sale, index) => (
-                 <Link to={`/sale_detail/${sale.id}`} key={index} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div className='s-item'>
-                      <img className='sale-det-img' src={sale.img} height={400} width={250} />
-                        <h5 style={{fontSize: '2rem'}}>{sale.name}</h5>
-                  </div>
+                 <Link className='s-item' to={`/sale_detail/${sale.id}`} key={index} style={{ backgroundImage: `url(${sale.img})`,
+                 backgroundRepeat: 'no-repeat',
+                 backgroundSize: 'contain',
+                 backgroundPosition: 'center center', }}>
                   </Link>
                 ))}
+            </div>
             </div>
           </div>
         )}
@@ -158,13 +162,12 @@ export const ProfileDetail = () => {
                  <Link to={`/transaction/${transaction.id}`} key={index}>
                   
                   <div className='trs-card' style={{ backgroundColor: 'red' }}>
-                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />  
+                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale.img} />  
                         <h5>{transaction.sale.name}</h5>
                         <h5>{transaction.transaction_date}</h5>
                   </div>
                   </Link>
                   ) : (<Link to={`/transaction/${transaction.id}`} key={index}>
-                  
                   <div className='trs-card' style={{ backgroundColor: 'green' }}>
                       <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale.name} />  
                         <h5>{transaction.sale.name}</h5>

@@ -53,32 +53,32 @@ function Loginpage() {
                       </div>
                     </div>
                     <h5
-                      className="fw-normal mb-3 pb-3"
-                      style={{ letterSpacing: 1 }}
+                      className="fw-normal mb-3"
+                      style={{ letterSpacing: 1, fontSize:'2rem' }}
                     >
                       Sign into your account
                     </h5>
-                    <div className="form-outline mb-4">
+                    <div className="form-outline">
+                    <label className="form-label" htmlFor="form2Example17">
+                        Email address
+                      </label>
                       <input
                         type="email"
                         id="form2Example17"
                         className="form-control form-control-lg"
                         name='email'
                       />
-                      <label className="form-label" htmlFor="form2Example17">
-                        Email address
-                      </label>
                     </div>
                     <div className="form-outline mb-4">
+                    <label className="form-label" htmlFor="form2Example27">
+                        Password
+                      </label>
                       <input
                         type="password"
                         id="form2Example27"
                         className="form-control form-control-lg"
                         name='password'
                       />
-                      <label className="form-label" htmlFor="form2Example27">
-                        Password
-                      </label>
                     </div>
                     <div className="pt-1 mb-4">
                       <button

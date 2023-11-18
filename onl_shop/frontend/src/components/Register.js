@@ -50,7 +50,7 @@ function Registerpage() {
                           </div>
                           <h5
                             className="fw-normal mb-3 pb-3"
-                            style={{ letterSpacing: 1 }}
+                            style={{ letterSpacing: 1, fontSize: '3rem' }}
                           >
                             Sign Up
                           </h5>
