@@ -1,65 +1,140 @@
 .main-detail{
     min-height: 100vh;
-    width: 100%;
+    min-width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 10vw;
     align-items: center;
     font-size: 1.6rem;
 }
 
 .edit-box{
-  min-width: 80vw;
-  min-height: 80vh;
+  min-width: inherit;
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(253, 255, 253, 0.5);
+}
+
+.e-form {
+  background: rgba(182, 200, 183, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  background-color: rgb(168, 187, 220);
-  box-shadow: 0.4rem 0.1rem 0.1rem rgb(131, 156, 200);
+  height: 50vh;
+  padding: 2rem;
+  width: 70%;
 }
-.edit-box label{
+
+.e-form label{
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+
+.e-form input{
+  background-color: inherit;
+  margin-bottom: 3rem;
   font-size: 2rem;
-}
-.edit-box input,textarea,button{
-  margin-bottom: 2rem;
   outline: 0;
-  width: 100%;
-  transition: 0.5s;
   border: none;
-  border-bottom: 1px solid rgb(58, 53, 53);
+  border-bottom: 2px solid;
+  transition: 0.5s;
+  border-radius: 0.5rem;
 }
-
-.edit-box input,textarea,button:focus{
-  scale: 1.1;
-  background-color: rgb(80, 191, 169);
+.e-form input:focus{
+  transform: scale(1.01);
+  background-color: rgb(217, 204, 129);
 }
-
+.e-form textarea{
+  margin-bottom: 3rem;
+  outline: 0;
+  border: none;
+  font-size: 2rem;
+  border-radius: 0.5rem;
+}
+.e-form textarea:focus{
+  transform: scale(1.01);
+  background-color: rgb(217, 204, 129);
+}
+.e-form button{
+  padding: 0;
+  border: none;
+  background-color: rgb(143, 196, 143);
+  height: 6rem;
+  font-size: 3rem;
+  font-weight: 600;
+}
+.e-form button:hover{
+  transition: 0.5s;
+  transform: scale(1.02);
+  background-color: rgb(84, 191, 84);
+}
 .detail-box{
-  min-width: 70vw;
-  min-height: 60vh;
+  min-width: inherit;
+  min-height: inherit;
   display: flex;
-  gap: 2rem;
-  background-color: rgb(168, 187, 220);
-  box-shadow: 0.4rem 1rem rgb(131, 156, 200);
+  background: rgba(253, 255, 253, 0.5);
+  justify-content: space-evenly;
   
 }
 
 .d-col{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 50%;
+  align-items: center;
+  border-right: 2px solid;
 }
 
 .d-col p{
   
 } 
 
+
 #prof-img{
-  width: 20rem;
-  height: 20rem;
+  width: 15vw;
+  height: inherit;
 }
 
-#sale-det-img{
-  width: 20rem;
-  height: 20rem;
+.items-col{
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.s-item{
+  flex: '0 0 33%';
+  margin-bottom: '15px'; 
+  justify-content: center;
+  text-align: center;
+  transition: 0.5s;
+}
+.s-item:hover{
+  transform: scale(1.03);
+  background-color: rgb(152, 171, 207);
+}
+
+.sale-det-img{
+  width: 15vw;
+  height: inherit;
+}
+
+.trs-sect{
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.trs-card{
+  min-width: 80vw;
+  min-height: 15vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 3vw;
+}
+
+.trs-card:hover{
+  scale: (1.1);
 }

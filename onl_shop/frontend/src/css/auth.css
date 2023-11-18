@@ -11,12 +11,12 @@
     font-size: 2rem;
 }
 
-#auth-form div input{
+#auth-form{
     font-size: 2rem;
     outline: 0;
     transition: 0.5s;
 }
 
-#auth-form div input:focus{
+#auth-form{
     background-color: rgb(188, 188, 239);
 }

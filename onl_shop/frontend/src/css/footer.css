@@ -1,23 +1,41 @@
 .footer{
     font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 2vw;
 }
 
 #navb {
     background-color: black;
 }
-
 .lista{
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+.lista li{
     list-style: none;
 }
-
-
 .lista li a{
-    margin: 0;
+    margin-bottom: 2rem;
     text-decoration: none;
     color: black;
+    transition: 0.5s;
 }
 .lista li a:hover{
     color:rgb(133, 127, 127);
+}
+
+.f-col{
+    min-width: 25vw;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+@media screen {
+    .footer{
+        flex-direction: column;
+    }
 }

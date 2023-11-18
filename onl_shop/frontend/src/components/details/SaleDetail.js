@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
 import AuthContext from '../../auth/AuthContext';
 import swal from 'sweetalert2';
@@ -103,15 +103,22 @@ const SaleDetail = () => {
         <section className="sale-info">
           <h1>{sale.name}</h1>
           <p>{sale.price}</p>
-          {user_id === seller_id ? (
-            <button id='delete-btn' onClick={deleteSale}>
-              DELETE SALE
-            </button>
-          ) : (
-            <button id='submit-btn' onClick={doTransaction}>
-              BUY NOW
-            </button>
-          )}
+          {user_id ? (
+              user_id === seller_id ? (
+                <button id='delete-btn' onClick={deleteSale}>
+                  DELETE SALE
+                </button>
+              ) : (
+                <div>
+                  <Link to={`/seller/${seller_id}`}>View Seller</Link>
+                  <button id='submit-btn' onClick={doTransaction}>
+                    BUY NOW
+                  </button>
+                </div>
+              )
+            ) : (
+              <Link to={`/login`}>Login to buy item!</Link>
+            )}
         </section>
       </div>
     </div>

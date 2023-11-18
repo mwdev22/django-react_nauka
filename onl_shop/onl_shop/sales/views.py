@@ -1,6 +1,4 @@
 from rest_framework import generics
-from .models import Sale, Transaction
-from .serializers import SaleSerializer, TransactionSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.filters import SearchFilter
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -11,7 +9,11 @@ from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTTokenUserAuthentication
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+
 from accounts.models import User
+
+from .models import Sale, Transaction
+from .serializers import SaleSerializer, TransactionSerializer
 
 
 
@@ -21,17 +23,18 @@ class SaleList(generics.ListAPIView):
     serializer_class = SaleSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     authentication_classes = [JWTTokenUserAuthentication]
-    search_fields = ['name', 'description', 'category']  
+    
 
     def get_queryset(self):
         # sprawdzam, czy są kryteria wyszukiwania
         search_query = self.request.query_params.get('search')
         # filtrowanie odpowiednio aktywnych aukcji, oraz wg parametrów wyszukiwania
         if search_query != 'null':
+            self.search_fields = ['name', 'description', 'category']  
             self.filter_backends = [SearchFilter]
             queryset = Sale.objects.filter(Q(name__icontains=search_query, is_active=True) | Q(description__icontains=search_query, is_active=True) | Q(category__icontains=search_query, is_active=True))
         else:
-            queryset = Sale.objects.filter(is_active=True)
+            queryset = Sale.objects.filter(is_active=True).order_by('-created_at')
         return queryset
 
         
@@ -57,7 +60,7 @@ class UserSales(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = SaleSerializer
     authentication_classes = [JWTTokenUserAuthentication]
-
+    # filtrowanie aukcji użytkownika
     def get_queryset(self):
         user = User.objects.get(id=self.request.user.id)
         queryset = Sale.objects.filter(seller=user, is_active=True)

@@ -17,6 +17,8 @@ export const ProfileDetail = () => {
   const user_id = parseInt(params.id, 10);
 
 
+
+
 // pobieranie atrybutów użytkownika, listę jego aukcji oraz listę transakcji
   useEffect(() => {
     if (authTokens) {
@@ -105,6 +107,7 @@ export const ProfileDetail = () => {
       <main className="main-detail">
         {isEditing ? (
           <div className='edit-box'>
+            <div className='e-form'>
             <label htmlFor='username'>Username:</label>
             <input
               type="text"
@@ -125,6 +128,7 @@ export const ProfileDetail = () => {
               onChange={handlePictureChange}
             />
             <button onClick={handleSaveClick}>Save</button>
+            </div>
           </div>
         ) : (
           <div className='detail-box'>
@@ -136,12 +140,10 @@ export const ProfileDetail = () => {
             </div>
             <div className='items-col'>
             {sales.map((sale, index) => (
-                 <Link to={`/sale_detail/${sale.id}`} key={index}>
-                  <div className='card'>
-                    <div className="card-body">
-                      <img src={sale.img} height={400} width={250} />
-                        <h5 className="card-title">{sale.name}</h5>
-                    </div>
+                 <Link to={`/sale_detail/${sale.id}`} key={index} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div className='s-item'>
+                      <img className='sale-det-img' src={sale.img} height={400} width={250} />
+                        <h5 style={{fontSize: '2rem'}}>{sale.name}</h5>
                   </div>
                   </Link>
                 ))}
@@ -155,17 +157,17 @@ export const ProfileDetail = () => {
                 (transaction.seller.id===user_id) ? (
                  <Link to={`/transaction/${transaction.id}`} key={index}>
                   
-                  <div className='trs-card' style={color=green}>
+                  <div className='trs-card' style={{ backgroundColor: 'red' }}>
                       <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />  
-                        <h5>{transaction.sale}</h5>
+                        <h5>{transaction.sale.name}</h5>
                         <h5>{transaction.transaction_date}</h5>
                   </div>
                   </Link>
                   ) : (<Link to={`/transaction/${transaction.id}`} key={index}>
                   
-                  <div className='trs-card' style={color=red}>
-                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale} />  
-                        <h5>{transaction.sale}</h5>
+                  <div className='trs-card' style={{ backgroundColor: 'green' }}>
+                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale.name} />  
+                        <h5>{transaction.sale.name}</h5>
                         <h5>{transaction.transaction_date}</h5>
                   </div>
                   </Link>)

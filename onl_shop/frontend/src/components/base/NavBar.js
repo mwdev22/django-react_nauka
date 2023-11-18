@@ -27,7 +27,7 @@ function Navbar() {
   
   return (
     <div>
-      <nav id='navb' className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+      <nav id='navb' className="navbar navbar-expand-lg sticky-top bg-dark">
         <div className="container-fluid nawigacja">
           <a className="navbar-brand" href="#">
             <img style={{ width: "120px", padding: "6px" }} src="" alt="" />

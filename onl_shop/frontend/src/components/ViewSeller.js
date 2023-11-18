@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import AuthContext from '../auth/AuthContext'
+import { Link } from 'react-router-dom'
 
 export const ViewSeller = () => {
 
@@ -13,7 +13,7 @@ export const ViewSeller = () => {
 
     useEffect = () => {
         axios.
-            get(`http://127.0.0.1:8000/api/sales/profile_detail/${sellerID}`)
+            get(`http://127.0.0.1:8000/api/accounts/profile_detail/${sellerID}`)
             .then((response) => {
                 console.log(response.data)
                 setSeller(response.data)
@@ -40,7 +40,6 @@ export const ViewSeller = () => {
               <img id="detail-img" src={seller.img} />
               <h2>{seller.username}</h2>
               <p>{seller.bio}</p>
-              <button onClick={handleEditClick}>Edit</button>
             </div>
             <div className='items-col'>
             {sales.map((sale, index) => (

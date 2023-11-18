@@ -29,14 +29,6 @@ function ShopCenter() {
   return (
     <div>
       <div className="container">
-      <aside className="filters">
-        <h1>Filters</h1>
-        <h3>Categories:</h3>
-        
-        <h3>Price: </h3>
-        <input type="range" name="" id=""/>
-      </aside>
-
       <section className="sale-list">
   {sales.map((sale, index) => (
     <div key={index}>
