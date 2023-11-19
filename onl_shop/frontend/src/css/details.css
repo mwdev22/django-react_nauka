@@ -130,21 +130,35 @@
 .trs-sect{
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem;
+  margin: 5rem 2rem;
 }
 
 .trs-card {
   min-width: 80vw;
-  min-height: 15vh;
+  max-height: 15vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
   gap: 3vw;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1rem 1rem;
   overflow: hidden;
 }
 
-
-.trs-card:hover{
-  scale: (1.1);
+.trs-card img {
+  max-width: 10vh;
+  max-height: 10vh; /* Set a maximum height if desired */
+  height: auto;
+  object-fit: cover; /* or object-fit: contain; depending on your preference */
 }
+.trs-card{
+  text-decoration: none;
+}
+
+.trs-card h5{
+  color: black;
+  font-size: 3rem;
+}
+
+

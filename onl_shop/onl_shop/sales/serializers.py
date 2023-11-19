@@ -1,9 +1,9 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from accounts.serializers import UserSerializer
 from .models import Sale, Transaction
 from accounts.models import User
 
-class SaleSerializer(ModelSerializer):
+class SaleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sale
         fields = '__all__'
@@ -17,22 +17,22 @@ class SaleSerializer(ModelSerializer):
         return representation
     
 
-class TransactionSerializer(ModelSerializer):
+class TransactionSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Transaction
         fields = '__all__'
-        extra_fields=['seller','buyer','sale']
 
-#   overriding realted fields
     def to_representation(self, instance):
         representation = super(TransactionSerializer, self).to_representation(instance)
-        seller_data = UserSerializer(instance.seller).data
-        buyer_data = UserSerializer(instance.buyer).data
-        sale_data = SaleSerializer(instance.sale).data
-        representation['seller'] = seller_data
-        representation['buyer'] = buyer_data
-        representation['sale'] = sale_data
+
+
+        representation['seller'] = UserSerializer(instance.seller).data
+        representation['buyer'] = UserSerializer(instance.buyer).data
+        representation['sale'] = SaleSerializer(instance.sale).data
+
+        
+
         return representation
-    
     
     

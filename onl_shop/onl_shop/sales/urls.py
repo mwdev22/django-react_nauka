@@ -5,6 +5,8 @@ urlpatterns = [
 #   SALES ENDPOINTS
     path('list', views.SaleList.as_view()),
     path('user_sales', views.UserSales.as_view()),
+    path('seller_sales/<int:pk>/', views.SellerSales.as_view()),
+
     path('new_sale', views.SaleCreate.as_view()),
     path('sale_update/<int:pk>/', views.SaleUpdate.as_view()),
     path('sale_delete/<int:pk>/', views.SaleDelete.as_view()),

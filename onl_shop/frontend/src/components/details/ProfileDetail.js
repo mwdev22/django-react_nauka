@@ -42,12 +42,9 @@ export const ProfileDetail = () => {
       // przypisywanie atrybutów elementom state, aby można było z nich wygodnie korzystać w komponencie
       Promise.all(requests)
         .then(([profileResponse, transactionsResponse, salesResponse]) => {
-          console.log(profileResponse.data);
-          console.log(profileResponse.data.img)
+
           setProfile(profileResponse.data);
-          console.log(transactionsResponse.data.sale);
           setTransactions(transactionsResponse.data);
-          console.log(salesResponse.data);
           setSales(salesResponse.data)
         })
         .catch((error) => {
@@ -134,7 +131,7 @@ export const ProfileDetail = () => {
         ) : (
           <div className='detail-box'>
             <div className='d-col'>
-              <img src={profile.img} alt={profile.username} id="prof-img" />
+              <img src={profile.img} alt={profile.username} id="prof-img" style={{margin: '3rem'}} />
               <h2 style={{fontSize:'3rem', fontWeight: '700', marginTop: '2rem'}}>{profile.username}</h2>
               <p style={{height:'fit-content', fontSize: '2rem', marginBottom: '4rem'}}>{profile.bio}</p>
               <button className='e-btn' onClick={handleEditClick}>Edit</button>
@@ -157,21 +154,23 @@ export const ProfileDetail = () => {
       </main>
 
       <section className='trs-sect'>
+              <p style={{textAlign:'center', fontSize: '3rem', fontWeight:'800'}}>Your Transactions</p>
+
       {transactions.map((transaction, index) => (
                 (transaction.seller.id===user_id) ? (
                  <Link to={`/transaction/${transaction.id}`} key={index}>
                   
-                  <div className='trs-card' style={{ backgroundColor: 'red' }}>
-                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale.img} />  
-                        <h5>{transaction.sale.name}</h5>
-                        <h5>{transaction.transaction_date}</h5>
-                  </div>
-                  </Link>
-                  ) : (<Link to={`/transaction/${transaction.id}`} key={index}>
-                  <div className='trs-card' style={{ backgroundColor: 'green' }}>
+                  <div className='trs-card' style={{ backgroundColor: 'rgb(139, 186, 208)' }}>
                       <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale.name} />  
                         <h5>{transaction.sale.name}</h5>
-                        <h5>{transaction.transaction_date}</h5>
+                        <h5>{new Date(transaction.transaction_date).toLocaleString()}</h5>
+                  </div>
+                  </Link>
+                  ) : (<Link to={`/transaction/${transaction.id}`} key={index} className=''>
+                  <div className='trs-card' style={{ backgroundColor: 'rgb(104, 194, 111)' }}>
+                      <img src={transaction.sale.img} height={400} width={250} alt={transaction.sale.name} />  
+                        <h5>{transaction.sale.name}</h5>
+                        <h5>{new Date(transaction.transaction_date).toLocaleString()}</h5>
                   </div>
                   </Link>)
                 ))}

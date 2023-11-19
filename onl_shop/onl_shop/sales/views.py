@@ -65,6 +65,18 @@ class UserSales(generics.ListAPIView):
         user = User.objects.get(id=self.request.user.id)
         queryset = Sale.objects.filter(seller=user, is_active=True)
         return queryset
+    
+class SellerSales(generics.ListAPIView):
+    queryset = Sale.objects.all()
+    permission_classes = [IsAuthenticated]
+    serializer_class = SaleSerializer
+    authentication_classes = [JWTTokenUserAuthentication]
+    # filtrowanie aukcji użytkownika
+    def get_queryset(self):
+        user_id = self.kwargs.get('pk')
+        user = User.objects.get(id=user_id)
+        queryset = Sale.objects.filter(seller=user, is_active=True)
+        return queryset
 
 class SaleUpdate(generics.UpdateAPIView):
     queryset = Sale.objects.all()
@@ -156,3 +168,15 @@ class TransactionDetail(generics.RetrieveAPIView):
     authentication_classes = [JWTTokenUserAuthentication]
     serializer_class = TransactionSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+
+        sale_data = serializer.data.get('sale', {})
+        sale_img_url = sale_data.get('img', None)
+
+        if sale_img_url:
+            sale_img_url = self.request.build_absolute_uri(sale_img_url)
+            sale_data['img'] = sale_img_url
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
