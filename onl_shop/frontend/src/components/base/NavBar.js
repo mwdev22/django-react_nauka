@@ -49,12 +49,6 @@ function Navbar() {
                     <Link className="nav-link" to="/register">Register</Link>
                   </li>
 
-                  <li>
-                    <div id='search'>
-                      <input type="search" id="nav-search" />
-                      <button id="search-submit" type="submit"></button>
-                    </div>
-                  </li>
                 </>
               }
 
@@ -71,14 +65,15 @@ function Navbar() {
                     <Link className='nav-link' to={`/new_sale`}>Sell item</Link>
                   </li>
                   
-                  <li>
-                    <div id='search'>
-                      <input type="search" id="nav-search" onChange={handleSearchInputChange} />
-                      <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>Search item</button>
-                    </div>
-                  </li>
                 </>
               }
+
+              <li>
+                <div id='search'>
+                    <input type="search" id="nav-search" onChange={handleSearchInputChange} />
+                    <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>Search item</button>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

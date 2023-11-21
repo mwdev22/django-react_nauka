@@ -28,17 +28,16 @@ function ShopCenter() {
 
   return (
     <div>
-      <div className="container">
+      
       <section className="sale-list">
   {sales.map((sale, index) => (
-    <div key={index}>
-      {console.log(sale)} {/* Log the sale object to the console for debugging */}
-      <Link to={`/sale_detail/${sale.id}`}>
-        <div className='card'>
-          <div className="card-body">
-            <img src={sale.img} height={400} width={250} alt={sale.name} />
-            <h5 className="card-title">{sale.name}</h5>
-            <p className="card-text">{sale.description}</p>
+    <div key={index} style={{height: '40vh'}}>
+      <Link to={`/sale_detail/${sale.id}`} style={{textDecoration: 'none', fontSize:'1.4rem', color:'black'}}>
+        <div className='sale-card'>
+          <div className="img-dv" style={{background: `url(${sale.img}) no-repeat center center`}}> 
+          </div>
+          <div className='sale-desc'>
+            <h5 style={{fontSize: '3rem', color:'black'}}>{sale.name}</h5>
             <p className="card-text">Price: {sale.price}</p>
             <p className="card-text">Seller: {sale.seller.username}</p>
           </div>
@@ -46,9 +45,9 @@ function ShopCenter() {
       </Link>
     </div>
   ))}
-</section>
+      </section>
       </div>
-    </div>
+
   )
 }
 

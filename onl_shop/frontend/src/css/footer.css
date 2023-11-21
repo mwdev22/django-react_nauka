@@ -5,9 +5,6 @@
     gap: 2vw;
 }
 
-#navb {
-    background-color: black;
-}
 .lista{
     display: flex;
     flex-direction: column;
@@ -30,12 +27,6 @@
     min-width: 25vw;
     display: flex;
     flex-direction: column;
-    
 }
 
 
-@media screen {
-    .footer{
-        flex-direction: column;
-    }
-}
