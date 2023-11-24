@@ -1,54 +1,55 @@
-import {useState, useEffect, useContext} from 'react'
-import AuthContext from '../auth/AuthContext'
-import axios from 'axios'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import AuthContext from '../auth/AuthContext';
+import axios from 'axios';
 
 function ShopCenter() {
-    const { authTokens } = useContext(AuthContext);
+  const { authTokens } = useContext(AuthContext);
+  const [sales, setSales] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [sales, setSales] = useState([]);
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get('search');
 
-    const location = useLocation();
-    const searchQuery = new URLSearchParams(location.search).get('search'); // pobieranie parametrów filtrowania
+  useEffect(() => {
+    setLoading(true);
 
-// pobieranie wszystkich aukcji z api, uwzględniając filtry
-    useEffect(() => {
-        if (searchQuery){
-          console.log(searchQuery)
-        }
-        axios.get(`http://127.0.0.1:8000/api/sales/list?search=${searchQuery}`)
-        .then((response) => {
-                console.log(response.data)
-                setSales(response.data);
-            })
-            .catch((error) => {
-                console.error('error while getting sales', error);
-            });
-    }, [searchQuery]);
+    axios
+      .get(`http://127.0.0.1:8000/api/sales/list?search=${searchQuery}`)
+      .then((response) => {
+        setSales(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error while getting sales', error);
+        setLoading(false);
+      });
+  }, [searchQuery]);
 
   return (
     <div>
-      
-      <section className="sale-list">
-  {sales.map((sale, index) => (
-    <div key={index} style={{height: '40vh'}}>
-      <Link to={`/sale_detail/${sale.id}`} style={{textDecoration: 'none', fontSize:'1.4rem', color:'black'}}>
-        <div className='sale-card'>
-          <div className="img-dv" style={{background: `url(${sale.img}) no-repeat center center`}}> 
-          </div>
-          <div className='sale-desc'>
-            <h5 style={{fontSize: '3rem', color:'black'}}>{sale.name}</h5>
-            <p className="card-text">Price: {sale.price}</p>
-            <p className="card-text">Seller: {sale.seller.username}</p>
-          </div>
-        </div>
-      </Link>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <section className="sale-list">
+          {sales.map((sale, index) => (
+            <Link key={index} to={`/sale_detail/${sale.id}`} className="sale-link">
+              <div className="sale-card">
+                <div className="img-dv" style={{ background: `url(${sale.img}) no-repeat center`,
+              backgroundSize: 'cover',
+              backgroundPosition: '50% 50%'}} />
+                <div className="sale-desc">
+                  <h5>{sale.name}</h5>
+                  <p>Price: {sale.price}</p>
+                  <p>Seller: {sale.seller.username}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </section>
+      )}
     </div>
-  ))}
-      </section>
-      </div>
-
-  )
+  );
 }
 
-export default ShopCenter
+export default ShopCenter;

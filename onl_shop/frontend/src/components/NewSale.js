@@ -72,7 +72,8 @@ export const NewSale = () => {
   return (
     <div>
       <section className="main-detail">
-        <div>
+        <div className='edit-box'>
+          <div id='n-sale-form' className='e-form'>
           <label htmlFor="name">Name:</label>
           <input name="name" onChange={handleInputChange} />
           <label htmlFor="description">Description:</label>
@@ -98,7 +99,7 @@ export const NewSale = () => {
           />
           <button onClick={handleSaveClick}>Add Sale!</button>
         </div>
-        <div></div>
+        </div>
       </section>
     </div>
   );

@@ -1,0 +1,70 @@
+.contt{
+    display: flex;
+    justify-content: center;
+}
+.sale-cnt{
+    display: flex;
+    width: 80vw;
+    min-height: 80vh;
+    align-items: center;
+    flex-direction: column;
+    margin: 10vh;
+    background-color: rgb(213, 234, 234);
+    border-radius: 1rem;
+}
+
+.sale-img{
+    margin: 3rem;
+    min-width: 50vw;
+    min-height: 40vh;
+    background-size: contain;
+}
+
+.sale-info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.actions-d{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 3rem;
+}
+.l-act{
+    display: inline-block;
+}
+.l-act:hover{
+    text-decoration: none;
+}
+
+.s-bb{
+    border: none;
+    border-radius: 2rem;
+    transition: 1s ease-in-out;
+    font-size: 2rem;
+    padding: 2rem;
+}
+
+#submit-btn{
+    background-color: rgb(135, 197, 135);
+}
+
+#submit-btn:hover{
+    background-color: rgb(123, 228, 123);
+}
+
+#delete-btn{
+    background-color: rgb(233, 128, 120);
+}
+
+#delete-btn:hover{
+    background-color: rgb(237, 32, 18);
+}
+
+#n-sale-form{
+    min-height: 80vh;
+    background-color: rgb(235, 235, 235);
+}

@@ -1,82 +1,141 @@
 import { useContext, useState } from 'react';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import AuthContext from '../../auth/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
-  // autoryzacja przy użyciu kontekstu
   const [searchInput, setSearchInput] = useState('');
   const { user, logoutUser } = useContext(AuthContext);
-  const token = localStorage.getItem("authTokens");
+  const token = localStorage.getItem('authTokens');
   let user_id = 0;
 
-  // dekodowanie tokenu jeśli user jset zalogowany
   if (token) {
     const decoded = jwt_decode(token);
     user_id = decoded.user_id;
   }
+
   const handleSearchInputChange = (e) => {
     setSearchInput(e.target.value);
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSearchButtonClick = () => {
     navigate(`/shop_center?search=${searchInput}`);
+    closeMenu();
   };
-  
+
+  const openMenu = () => {
+    document.getElementById('resp-menu').style.width = '100%';
+    document.getElementById('burger').style.display = 'none';
+    document.getElementById('closeX').style.display = 'block';
+  };
+
+  const closeMenu = () => {
+    document.getElementById('resp-menu').style.width = '0%';
+    document.getElementById('burger').style.display = 'block';
+    document.getElementById('closeX').style.display = 'none';
+
+    if (window.innerWidth <= 600) {
+      document.getElementById('closeX').style.display = 'none'; // Ukryj ikonę "X"
+    }
+  };
+
   return (
     <div>
-      <nav id='navb' className="navbar navbar-expand-lg sticky-top bg-dark">
-        <div className="container-fluid nawigacja">
-          <a className="navbar-brand" href="#">
-            <img style={{ width: "120px", padding: "6px" }} src="" alt="" />
-          </a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              {token === null &&
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">Register</Link>
-                  </li>
-
-                </>
-              }
-
-              {token !== null &&
-                <>
-                  <li className="nav-item">
-                    <Link className='nav-link' to={`/profile/${user_id}`}>Profile</Link>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" onClick={logoutUser} style={{ cursor: "pointer" }}>Logout</a>
-                  </li>
-
-                  <li className="nav-item">
-                    <Link className='nav-link' to={`/new_sale`}>Sell item</Link>
-                  </li>
-                  
-                </>
-              }
-
+      <div id="resp-menu">
+        <a href="#" id="closeX" onClick={closeMenu}>
+          &times;
+        </a>
+        <ul>
+          <li>
+            <a onClick={closeMenu} href="/">
+              Home
+            </a>
+          </li>
+          {token === null && (
+            <>
               <li>
-                <div id='search'>
-                    <input type="search" id="nav-search" onChange={handleSearchInputChange} />
-                    <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>Search item</button>
-                </div>
+                <Link to="/login" onClick={closeMenu}>
+                  Login
+                </Link>
               </li>
-            </ul>
-          </div>
-        </div>
+              <li>
+                <Link to="/register" onClick={closeMenu}>
+                  Register
+                </Link>
+              </li>
+            </>
+          )}
+          {token !== null && (
+            <>
+              <li>
+                <Link to={`/profile/${user_id}`} onClick={closeMenu}>
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <a onClick={logoutUser} style={{ cursor: 'pointer' }}>
+                  Logout
+                </a>
+              </li>
+              <li>
+                <Link to={`/new_sale`} onClick={closeMenu}>
+                  Sell item
+                </Link>
+              </li>
+              <li id="search">
+            <input type="search" id="nav-search" onChange={handleSearchInputChange} />
+            <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>
+              Search item
+            </button>
+          </li>
+            </>
+          )}
+        </ul>
+      </div>
+
+      <span id="burger" onClick={openMenu}>
+        &#9776;
+      </span>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          {token === null && (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
+          {token !== null && (
+            <>
+              <li>
+                <Link to={`/profile/${user_id}`}>Profile</Link>
+              </li>
+              <li>
+                <a onClick={logoutUser} style={{ cursor: 'pointer' }}>
+                  Logout
+                </a>
+              </li>
+              <li>
+                <Link to={`/new_sale`}>Sell item</Link>
+              </li>
+            </>
+          )}
+          <li id="search">
+            <input type="search" id="nav-search" onChange={handleSearchInputChange} />
+            <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>
+              Search item
+            </button>
+          </li>
+        </ul>
       </nav>
     </div>
   );

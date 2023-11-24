@@ -93,25 +93,26 @@ const SaleDetail = () => {
   }
 
   return (
-    <div>
-      <div className='main-detail'>
-        <section className="sale-desc">
-          <img id='sale-det-img' src={sale.img} alt="" srcSet="" />
-          <p>{sale.description}</p>
-        </section>
+    <div className='contt'>
+      <div className='sale-cnt'>
+        <div className="sale-img" style={{background: `url(${sale.img}) no-repeat center center`,
+              backgroundSize: 'contain',
+              backgroundPosition: '50% 50%'}}>
+        </div>
 
         <section className="sale-info">
-          <h1>{sale.name}</h1>
-          <p>{sale.price}</p>
+          <h1 style={{fontSize: '4rem'}}>{sale.name}</h1>
+          <p style={{fontSize: '3rem'}}>COST: {sale.price}$</p>
+          <p style={{fontSize: '1.8rem'}}>{sale.description}</p>
           {user_id ? (
               user_id === seller_id ? (
-                <button id='delete-btn' onClick={deleteSale}>
+                <button id='delete-btn' className='s-bb' onClick={deleteSale}>
                   DELETE SALE
                 </button>
               ) : (
-                <div>
-                  <Link to={`/seller/${seller_id}`}>View Seller</Link>
-                  <button id='submit-btn' onClick={doTransaction}>
+                <div className='actions-d'>
+                  <Link className='l-act' to={`/seller/${seller_id}`}>View Seller</Link>
+                  <button id='submit-btn' className='s-bb' onClick={doTransaction}>
                     BUY NOW
                   </button>
                 </div>

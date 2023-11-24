@@ -1,0 +1,148 @@
+/* Navbar.css */
+
+body {
+    margin: 0;
+    font-family: 'Sometype Mono', monospace;
+    font-size: 10px;
+  }
+  
+  #resp-menu {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 100%;
+    width: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    overflow: hidden;
+    transition: width 0.3s ease;
+  }
+  
+  #closeX {
+    position: absolute;
+    right: 3.4rem;
+    top: 1.9rem;
+    text-decoration: none;
+    color: black;
+    font-size: 6rem;
+    display: none;
+  }
+  
+  #resp-menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    text-align: center;
+  }
+  
+  #resp-menu ul a {
+    text-decoration: none;
+    color: black;
+    font-size: 7vw;
+    font-weight: 700;
+    display: block;
+    padding: 2rem 20vw;
+  }
+  
+  #resp-menu ul a:hover {
+    color: white;
+    background-color: #666;
+  }
+  
+  #burger {
+    display: none;
+    position: fixed;
+    background-color: #eee;
+    right: 2rem;
+    top: 2rem;
+    font-size: 4rem;
+    cursor: pointer;
+    padding: 1rem 1.3rem;
+    border-radius: 1rem;
+    z-index: 2;
+  }
+  
+  nav {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+  }
+  
+  nav ul {
+    display: flex;
+    gap: 20px;
+    text-decoration: none;
+    list-style: none;
+  }
+  nav ul li{
+    
+  }
+  
+  nav ul li a {
+    color: white;
+    display: block;
+    padding: 10px 3vw;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 2.6rem;
+    text-decoration: none;
+  }
+  
+  nav ul li a:hover {
+    background-color: #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 1rem;
+  }
+  
+  #search {
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #nav-search {
+    padding: 10px;
+    font-size: 1.6rem;
+    margin-right: 10px;
+  }
+  
+  #search-submit {
+    padding: 10px;
+    font-size: 1.6rem;
+    cursor: pointer;
+  }
+  
+  /* Mobile Responsiveness */
+  
+  @media all and (max-width: 600px) {
+    nav {
+      display: none;
+    }
+  
+    #burger {
+      display: block;
+    }
+  
+    #nakladka {
+      width: 100%;
+      display: none;
+    }
+  
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+      background-color: #333;
+      width: 100%;
+      position: absolute;
+      top: 6rem}}

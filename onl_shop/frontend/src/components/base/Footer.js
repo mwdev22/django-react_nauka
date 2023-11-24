@@ -3,14 +3,14 @@ import React from 'react';
 const Footer = () => {
   return (
     <div>
-      <footer className="footer">
+      <footer className="footer sticky-top">
             <div className="f-col">
               <h4>About us</h4>
               <p>E-commerce website, where you can sell unnecessary items in your house!</p>
             </div>
             <div className="f-col">
-              <h4>Categories</h4>
               <ul className='lista'>
+              <h4>Categories</h4>
                 <li><a href="/shop_center?search=clothes">Clothes</a></li>
                 <li><a href="/shop_center?search=electronics">Electronics</a></li>
                 <li><a href="/shop_center?search=food">Food</a></li>

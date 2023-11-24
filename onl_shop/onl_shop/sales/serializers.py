@@ -26,7 +26,6 @@ class TransactionSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super(TransactionSerializer, self).to_representation(instance)
 
-
         representation['seller'] = UserSerializer(instance.seller).data
         representation['buyer'] = UserSerializer(instance.buyer).data
         representation['sale'] = SaleSerializer(instance.sale).data
