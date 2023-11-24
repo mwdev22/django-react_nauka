@@ -95,9 +95,7 @@ const SaleDetail = () => {
   return (
     <div className='contt'>
       <div className='sale-cnt'>
-        <div className="sale-img" style={{background: `url(${sale.img}) no-repeat center center`,
-              backgroundSize: 'contain',
-              backgroundPosition: '50% 50%'}}>
+        <div className="sale-img" style={{backgroundImage: `url(${sale.img})`}}>
         </div>
 
         <section className="sale-info">

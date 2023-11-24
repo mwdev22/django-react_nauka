@@ -1,6 +1,7 @@
 .contt{
     display: flex;
     justify-content: center;
+    background-color: rgb(236, 237, 237);
 }
 .sale-cnt{
     display: flex;
@@ -9,15 +10,18 @@
     align-items: center;
     flex-direction: column;
     margin: 10vh;
-    background-color: rgb(213, 234, 234);
+    background-color: rgb(208, 213, 213);
     border-radius: 1rem;
+    box-shadow: 1rem 1rem 1rem;
 }
 
 .sale-img{
     margin: 3rem;
     min-width: 50vw;
     min-height: 40vh;
+    background-position: center;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .sale-info{

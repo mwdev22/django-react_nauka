@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import AuthContext from '../../auth/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,19 +27,19 @@ function Navbar() {
 
   const openMenu = () => {
     document.getElementById('resp-menu').style.width = '100%';
-    document.getElementById('burger').style.display = 'none';
+
     document.getElementById('closeX').style.display = 'block';
   };
 
   const closeMenu = () => {
     document.getElementById('resp-menu').style.width = '0%';
-    document.getElementById('burger').style.display = 'block';
     document.getElementById('closeX').style.display = 'none';
 
-    if (window.innerWidth <= 600) {
-      document.getElementById('closeX').style.display = 'none'; // Ukryj ikonę "X"
-    }
+    
+    
   };
+
+  
 
   return (
     <div>
@@ -86,10 +86,12 @@ function Navbar() {
               </li>
               <li id="search">
             <input type="search" id="nav-search" onChange={handleSearchInputChange} />
-            <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>
-              Search item
-            </button>
-          </li>
+            </li>
+            <li>
+              <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>
+                Search item
+              </button>
+            </li>
             </>
           )}
         </ul>

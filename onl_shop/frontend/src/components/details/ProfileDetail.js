@@ -137,14 +137,11 @@ export const ProfileDetail = () => {
               <button className='e-btn' onClick={handleEditClick}>Edit</button>
             </div>
             
-            <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', height:'inherit'}}>
               <span style={{textAlign: 'center', fontSize: '4rem', fontWeight: '600'}}>Your sales</span>
             <div className='items-col'>
             {sales.map((sale, index) => (
-                 <Link className='s-item' to={`/sale_detail/${sale.id}`} key={index} style={{ backgroundImage: `url(${sale.img})`,
-                 backgroundRepeat: 'no-repeat',
-                 backgroundSize: 'contain',
-                 backgroundPosition: 'center center', }}>
+                 <Link className='s-item' to={`/sale_detail/${sale.id}`} key={index} style={{ backgroundImage: `url(${sale.img})`}}>
                   </Link>
                 ))}
             </div>

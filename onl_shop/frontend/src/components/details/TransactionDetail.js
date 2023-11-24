@@ -35,7 +35,7 @@ export const TransactionDetail = () => {
 
   return (
     <div>
-      <main className='main-detail'>
+      <main className='main-detail trs-m'>
         <section className='user-i'>
           <h1>
             Sold by{' '}
@@ -46,6 +46,8 @@ export const TransactionDetail = () => {
         </section>
         <section className='sale-s'>
           <img src={transaction.sale?.img} width={250} height={250} alt={transaction.sale?.name} />
+          <p style={{margin: '3rem', fontSize:'2rem'}}><strong>Transaction date:</strong> {new Date(transaction.transaction_date).toLocaleString()}</p>
+          <p style={{fontSize:'2rem'}}>Price: {transaction.sale?.price}$</p>
         </section>
         <section className='user-i'>
   <h1>

@@ -35,9 +35,7 @@ function ShopCenter() {
           {sales.map((sale, index) => (
             <Link key={index} to={`/sale_detail/${sale.id}`} className="sale-link">
               <div className="sale-card">
-                <div className="img-dv" style={{ background: `url(${sale.img}) no-repeat center`,
-              backgroundSize: 'cover',
-              backgroundPosition: '50% 50%'}} />
+                <div className="img-dv" style={{ backgroundImage: `url(${sale.img})`}} />
                 <div className="sale-desc">
                   <h5>{sale.name}</h5>
                   <p>Price: {sale.price}</p>
