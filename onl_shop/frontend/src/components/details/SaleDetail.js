@@ -116,7 +116,7 @@ const SaleDetail = () => {
                 </div>
               )
             ) : (
-              <Link to={`/login`}>Login to buy item!</Link>
+              <Link to={`/login`}  className='redi-b s-bb l-act'>Login to buy item!</Link>
             )}
         </section>
       </div>

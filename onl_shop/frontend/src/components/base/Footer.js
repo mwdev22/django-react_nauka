@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <div>
-      <footer className="footer sticky-top">
+      <footer className="footer sticky-top" id='ft'>
             <div className="f-col">
               <h4>About us</h4>
               <p>E-commerce website, where you can sell unnecessary items in your house!</p>

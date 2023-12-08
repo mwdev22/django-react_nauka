@@ -3,6 +3,7 @@ body {
     font-family: 'Sometype Mono', monospace;
     font-size: 10px;
   }
+
   
   #resp-menu {
     position: fixed;
@@ -31,14 +32,15 @@ body {
   #resp-menu ul {
     display: flex;
     flex-direction: column;
-    gap: 4vh;
+    gap: 2vh;
     text-align: center;
+    padding: 0;
   }
   
   #resp-menu ul a {
     text-decoration: none;
     color: black;
-    font-size: 7vw;
+    font-size: 5vw;
     font-weight: 700;
     display: block;
     padding: 2rem 20vw;
@@ -99,31 +101,54 @@ body {
   }
   
   #search {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
   }
   
   #nav-search {
     font-size: 1.6rem;
-    padding: 3rem;
+    padding: 1rem;
     border: 0;
+    background-color: transparent;
+    border-bottom: 2px solid;
+    border-radius: 1rem 1rem 0 0;
+    transition: 1s;
   }
 
   #nav-search:focus{
-    border: none;
-    background-color: #e9e4d6; 
+    transform: scale(1.03);
     outline: 0;
+    background-color: #666;
   }
   
   #search-submit {
-    font-size: 2.3rem;
-    cursor: pointer;
-    border: none;
-    width: 15rem;
+    color: white;
+    display: block;
+    padding: 10px 3vw;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 2.6rem;
+    text-decoration: none;
+    background-color: transparent;
+    border: 0;
+  }
+  #search-submit:hover{
+    background-color: #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 1rem;
+  }
+  #search-submit:focus{
+    outline: 0;
+  }
+  #search-submit::after{
+    outline: 0;
   }
     
-  @media all and (max-width: 600px) {
+  @media all and (max-width: 1040px) {
     nav {
       display: none;
     }
@@ -132,10 +157,6 @@ body {
       display: block;
     }
   
-    #nakladka {
-      width: 100%;
-      display: none;
-    }
   
     nav ul {
       flex-direction: column;
@@ -144,21 +165,44 @@ body {
       width: 100%;
       position: absolute;
       top: 6rem}
+
+      #nav-search {
+        font-size: 1.6rem;
+        padding: 1rem;
+        border: 0;
+        background-color: transparent;
+        border-bottom: 2px solid;
+        border-radius: 1rem 1rem 0 0;
+        transition: 1s;
+        width: 68vw;
+      }
+    
+      #nav-search:focus{
+        transform: scale(1.03);
+        outline: 0;
+        background-color: #666;
+      }
+      #search{
+        flex-direction: column;
+      }
+      
+      #search-submit {
+        cursor: pointer;
+        border: none;
+        padding: 2rem;
+        background-color: transparent;
+        text-decoration: none;
+        color: black;
+        font-size: 5vw;
+        font-weight: 700;
+        display: block;
+        padding: 2rem 20vw;
+        border-radius: 1rem;
+      }
+      #search-submit:hover{
+        color: white;
+        background-color: #666;
+      }
     
 
-      .footer {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .lista{
-        align-items:center;
-        padding: 0;
-      }
-      .f-col{
-        max-width:  none;
-        min-width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
     }

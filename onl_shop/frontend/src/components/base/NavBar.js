@@ -27,14 +27,14 @@ function Navbar() {
 
   const openMenu = () => {
     document.getElementById('resp-menu').style.width = '100%';
-
     document.getElementById('closeX').style.display = 'block';
+    document.getElementById('ft').style.display = 'none';
   };
 
   const closeMenu = () => {
     document.getElementById('resp-menu').style.width = '0%';
     document.getElementById('closeX').style.display = 'none';
-
+    document.getElementById('ft').style.display = 'flex';
     
     
   };
@@ -85,9 +85,7 @@ function Navbar() {
                 </Link>
               </li>
               <li id="search">
-            <input type="search" id="nav-search" onChange={handleSearchInputChange} />
-            </li>
-            <li>
+              <input type="search" id="nav-search" onChange={handleSearchInputChange} />
               <button id="search-submit" type="submit" onClick={handleSearchButtonClick}>
                 Search item
               </button>

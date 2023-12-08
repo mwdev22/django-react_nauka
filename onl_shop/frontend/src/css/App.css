@@ -22,34 +22,7 @@ html{
   align-items: center;
 }
 
-.nawigacja{
-  font-size: 3rem;
-}
-.nawigacja a{
-  padding-bottom: 1rem;
-  margin-left: 2rem;
-}
-#search{
-  display: flex;
-  align-items: center;
-  margin-left: 2rem;
-}
-#nav-search{
-  border-radius: 3rem;
-  width: 25rem;
-  height: 3rem;
-}
-#search-submit{
-  background-color: #c9d2de;
-  border-radius: 5rem;
-  width: 20rem;
-  height: 5rem;
-  margin-left: 2rem;
-}
-#search-submit:hover{
-  background-color: #a4aecb;
 
-}
 .nav-item{
   text-decoration: none;
 }

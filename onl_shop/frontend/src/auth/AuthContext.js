@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // logging user
   const loginUser = async (email, password) => {
     try {
       const response = await axios.post(
@@ -63,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error during login:", error);
-      // Handle error as needed
+      // handle error as needed
     }
   };
 
@@ -155,6 +156,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+// logging out if token expires
   useEffect(() => {
     const checkTokenExpiration = () => {
       if (authTokens) {

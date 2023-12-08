@@ -15,6 +15,7 @@
     box-shadow: 1rem 1rem 1rem;
 }
 
+
 .sale-img{
     margin: 3rem;
     min-width: 50vw;
@@ -39,9 +40,20 @@
 }
 .l-act{
     display: inline-block;
+    color: black;
 }
 .l-act:hover{
     text-decoration: none;
+    color: black;
+}
+
+.redi-b{
+    background-color: rgb(118, 172, 208); 
+    color:black;
+}
+
+.redi-b:hover{
+    background-color: rgb(100, 165, 208);
 }
 
 .s-bb{

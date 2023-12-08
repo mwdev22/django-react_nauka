@@ -138,7 +138,7 @@ export const ProfileDetail = () => {
             </div>
             
             <div style={{display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', height:'inherit'}}>
-              <span style={{textAlign: 'center', fontSize: '4rem', fontWeight: '600'}}>Your sales</span>
+              <span style={{textAlign: 'center', fontSize: '4rem', fontWeight: '600', margin: '3rem'}}>Your sales</span>
             <div className='items-col'>
             {sales.map((sale, index) => (
                  <Link className='s-item' to={`/sale_detail/${sale.id}`} key={index} style={{ backgroundImage: `url(${sale.img})`}}>
